@@ -1,0 +1,58 @@
+
+
+ input{
+    border-radius: 10px !important;
+    /* border: none !important; */
+    outline: none !important;
+}
+
+.forgot{
+    margin-bottom: 10px;
+    color: white;
+    text-align: end;
+    cursor: pointer;
+}
+.btns{
+    color: white;
+    background-color: green !important;
+    width:100% !important;
+    border-radius: 25px !important;
+    padding: 7px 0 !important;
+    outline: none !important;
+    border: none !important;
+}
+.new_user{
+color: white;
+text-align: center;
+
+}
+.sign_color{
+    color: blue;
+}
+.forgot:hover , .sign_color:hover{
+    color: red;
+    cursor: pointer;
+}
+
+.login_hed{
+    padding-top: 10px;
+    text-align: center;
+}
+.a{
+position: absolute;
+bottom: 0;
+left: 10px;
+color:green;
+background-color: yellowgreen;
+padding: 10px;
+border-radius: 10px;
+}
+.a>h1{
+    text-align: start;
+}
+
+
+
+
+
+

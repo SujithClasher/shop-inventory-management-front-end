@@ -1,38 +1,105 @@
-.App {
-  text-align: center;
+/* comman file */
+
+.comman_header{
+    background-color:#009688;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    font-weight: 700;
+   
+    color: white;
+}
+.comman{
+    border: 3px solid #AA47BD;
+    border-top: none;
+    margin: 10px;
+    padding: -30px;
+    border-radius: 5px;
+   
+    
+}
+.comman_head{
+    background-color:#AA47BD;
+    border: 1px solid #AA47BD;
+}
+.comman_head > h6{
+    padding: 8px;
+    font-size: 16px;
+    color: white;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.table_responsive{
+    overflow-x: auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.table_responsive > table > thead > tr > th{
+    min-width: 150px;
+}
+.table_responsive > table,td,th,tr{
+    border: 2px solid #8A0E4E !important;
+   padding: -8px;
+}
+tr:hover {
+    background-color: #3F51B6;
+    color: white;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+.siva{
+    min-width: 300px;
 }
 
-.App-link {
-  color: #61dafb;
+
+.table>:not(caption)>*>* {
+    padding: 0.3rem !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* Auth page css */
+.containers{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100vh;
+    background-image: url("../src/asset/img2.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;  
 }
+.form{
+    position: relative;
+        min-width: 30%;
+        margin: 0 auto;
+        background-color: rgba(0,0,0,0.7);
+        padding: 20px;
+        border-radius: 25px;
+        color: white;
+        box-shadow: inset -10px -10px rgba(0,0,0,0.5);
+    }
+ .error{
+    color: red;
+    text-align: end;
+ } 
+ .over{
+    cursor: pointer;
+    transition: transform 200ms ease-in-out;
+    padding: 5px 20px;
+    color: white;
+    /* text-decoration: none !important; */
+ }  
+ .over:hover{
+    transform: scale(1.09);
+    background-color: orangered;
+    border-radius: 1rem;
+ }
+
+
+ .spinner{
+width:1.5rem ;
+ }
+
+/* End auth page css */
+
