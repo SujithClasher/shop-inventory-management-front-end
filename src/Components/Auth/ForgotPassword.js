@@ -33,7 +33,7 @@ function ForgotPassword() {
           setloading(true);
           
   
-          let user = await axios.post(`${env.api}/reset-sendmail`, values);
+          let user = await axios.post(`${env.api}/user/forgot-password`, values);
   
           if (user.data.statusCode === 200) {
             toast.success(user.data.message);

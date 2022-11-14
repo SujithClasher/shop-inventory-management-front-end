@@ -6,7 +6,7 @@
 nav{
     display: flex;
     align-items: center;
-    background-color: #3C8DBB;
+    background-color: #26A244;
     color: white;
     font-family: 'Poppins', sans-serif;
     top: 0;
@@ -16,7 +16,7 @@ nav{
 }
 
 .nav_left {
- flex: 0.9;
+ flex: 0.6;
  min-width: 500px;
 }
 .nav_left > h5 {
@@ -25,51 +25,52 @@ nav{
     padding: 8px 0 ;
     font-weight: 500;
 }
-.nav_right {
+.nav_rights {
     display:flex;
-    flex: 0.1;
+    flex: 0.4;
     justify-content: flex-end;
     align-items: center;
     
 }
 
-.nav_right > div {
+.nav_rights > div {
 cursor: pointer;
 font-size: 0.9rem;
-transition: transform 200ms ease-in-out;
+
 font-weight: 400;
 letter-spacing: 0.01rem;
 padding: 3px 15px;
-margin: 10px;
+margin: 5px;
 }
-.nav_right >   div:hover {
-    transform: scale(1.09);
-    background-color: orangered;
-    border-radius: 2rem;
+.nav_rights >   div:hover {
+    color:gold;
 }
-/* .active{
-    transform: scale(1.09);
-    background-color: orangered;
-    border-radius: 2rem;
-} */
+
 .icon{
     color: white;
-    font-size: 1rem;
+    font-size: 0.5rem;
     margin-right: 7px;
 }
 .menu_icon{
     display: none;
 }
+.dd{
+    font-size: 22px;
+}
+.hed{
+    color: rgb(14, 69, 236);
+    font-size: 25px;
+}
 
 @media (max-width:991px) {
 
-.nav_right{
+.nav_rights{
     display:flex;
     flex-direction: column;
     width: 100%;
     position: absolute;
     top: 100%;
-    background-color: #3C8DBB;
+    background-color:#26A244;
 }
 .menu_icon {
     display: block;
@@ -81,10 +82,8 @@ margin: 10px;
 .menu_icon > span{
     font-size: 35px;
 }
-.menu_icon > span:hover{
-     color: orangered;
-}
-#hide{
+
+#hides{
     display: none;
 }
 
@@ -93,7 +92,7 @@ margin: 10px;
     .nav_left {
         flex: 0.4;
        }
-    .nav_right {
+    .nav_rights {
       
         flex: 0.6;
         

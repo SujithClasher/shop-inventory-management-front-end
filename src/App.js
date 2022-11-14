@@ -33,6 +33,8 @@ import { AdminProvider } from "./Components/Context/adminContext";
 import Razorpay from "./Components/Users/Razorpay";
 import OrderSuccess from "./Components/Users/OrderSuccess";
 import Invoice from "./Components/Users/Invoice";
+import { UserProvider } from "./Components/Context/usercContext";
+import ProfilePage from "./Components/Users/ProfilePage";
 
 function App() {
 
@@ -44,6 +46,7 @@ function App() {
   return (
     <div>
        <AdminProvider>
+        <UserProvider>
       <Routes>
         {/* Authentication Route */}
        
@@ -93,13 +96,16 @@ function App() {
         <Route path="user-portal" element={<UserPortal />}>
           <Route index element={<OrderPage />} />
           <Route path="razorpay" element={<Razorpay />} />
-          <Route path="order-success" element={<OrderSuccess />} />
+          <Route path="order-success/:id" element={<OrderSuccess />} />
           <Route path="order-success/invoice" element={<Invoice />} />
+          <Route path="profile-page" element={<ProfilePage />} />
+
         </Route>
        
 
 
       </Routes>
+      </UserProvider>
       </AdminProvider>
     </div>
   );

@@ -44,6 +44,7 @@ function EditProducts() {
     },
 
     onSubmit: async (values) => {
+      // values.availableInStock = values.quantity;
       await editProduct(values,viewProducts._id);
     },
   });
@@ -59,7 +60,7 @@ function EditProducts() {
         <div className="comman_head">
           <h6> Edit Products </h6>
         </div>
-  <div className='w-75 mx-auto p-4 '>
+  <div className=' '>
   <form onSubmit={(values) => {
               formik.handleSubmit(values);
             }}>
@@ -67,17 +68,17 @@ function EditProducts() {
   <div className="container">
 <div className="row">
   
-  <div className=' col-sm-12 col-md-6'>
+  <div className=' col-sm-12 col-md-6 mx-auto d-flex justify-content-center align-items-center'>
    
-  <div class="text-center">
-    <img src={image? image : img} class="rounded" alt="img" width="250px" height="250px"/>
+  <div class="">
+    <img src={image? image : img} class="rounded" alt="img" width="300px" height="300px"/>
 
     </div>
 
     
   </div>
   
-  <div className='col-sm-12 col-md-6'>
+  <div className='col-sm-12 col-md-6 mx-auto'>
            
   <div class="form-group">
     <label>Brand</label>
@@ -144,7 +145,9 @@ function EditProducts() {
     <input type="number" class="form-control shadow-none"  placeholder="Enter your quantity" value={formik.values.quantity}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              name="quantity"/>
+              name="quantity"
+              min={viewProducts.quantity} />
+              {console.log(viewProducts.quantity)}
                {formik.touched.quantity && formik.errors.quantity ? (
               <div className="error"> {formik.errors.quantity}</div>
             ) : null}

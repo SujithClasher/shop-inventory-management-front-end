@@ -49,9 +49,9 @@ function ForgotPasswordPage() {
           values.id = params.id;
           values.token = params.token;
           setloading(true)
-          let user = await axios.post(`${env.api}/password-reset`, values);
+          let user = await axios.post(`${env.api}/user/password-reset-page`, values);
   
-          if (user.data.statusCode === 201) {
+          if (user.data.statusCode === 200) {
             setloading(false)
             toast.success(user.data.message);
             setTimeout(() => {

@@ -15,7 +15,7 @@ export const AdminProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [dashboardProduct, setDashboardProduct] = useState([]);
     const [dashboardOverview, setDashboardOverview] = useState({});
-    const [orders,setOrders] = useState({});
+   
 
 
     useEffect(() => {
@@ -267,6 +267,7 @@ export const AdminProvider = ({ children }) => {
     // Dashboard
 
     const getDashboardProduct = async () => {
+        
         try {
             let value = await axios.get(`${env.api}/inventory/dashboard-products`);
             const { data } = value;
@@ -284,9 +285,10 @@ export const AdminProvider = ({ children }) => {
             console.log(error);
         }
     };
+
     return (
         <AdminContext.Provider value={{ username, setUsername, brand, open, setOpen, getBrand, addBrand, editBrand, deleteBrand, category, addCategory, editCategory, deleteCategory,
-         products, getproducts, addProduct, editProduct, deleteProduct, dashboardProduct, dashboardOverview, getCategory,orders,setOrders }}>
+         products, getproducts, addProduct, editProduct, deleteProduct, dashboardProduct, dashboardOverview, getCategory,}}>
             {children}
         </AdminContext.Provider>
     );

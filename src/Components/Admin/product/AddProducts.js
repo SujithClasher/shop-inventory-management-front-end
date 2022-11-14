@@ -42,6 +42,7 @@ function AddProducts() {
     },
 
     onSubmit: async (values) => {
+      //  values.availableInStock = values.quantity;
       await addProduct(values);
     },
   });

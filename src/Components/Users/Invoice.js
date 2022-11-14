@@ -1,31 +1,42 @@
-import React,{ useContext } from 'react';
-import AdminContext from '../Context/adminContext';
+
+import React,{ useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserContext from '../Context/usercContext';
+
 import './Invoice.css';
 
 function Invoice() {
-    const context = useContext(AdminContext);
-    const { orders } = context;
-const { order,payment,customer } = orders
-const {customerMobile,customerName,orderDate}= customer
-    console.log(orders);
+    const context = useContext(UserContext);
+    const { data } = context;
+ 
+    let navigate = useNavigate();
+  
+
+     const { order_id,customer,order,payment,payment_id,paymenttype } = data;
+    const {customerMobile,customerName,orderDate}= customer
+    
+
+
+
+
   return (
     <>
     <div class="container ">
 
 <div class="page-header">
-    <h1>Invoice Template  </h1>
+    <h1>Invoice   </h1>
 </div>
 
 
 <div class="container ">
     <div class="row ">
-        <div class="col-md-6 col-md-offset-3 body-main sss">
+        <div class="col-md-6  body-main sss">
             <div class="col-md-12">
                <div class="row">
-                    <div class="col-md-8 col-xl-9">
+                    <div class=" col-sm-8 col-md-8 col-xl-9">
                         <img class="img" alt="Invoce Template" src="http://pngimg.com/uploads/shopping_cart/shopping_cart_PNG59.png" />
                     </div>
-                    <div class="col-md-4 col-xl-3 text-right">
+                    <div class="col-sm-4 col-md-4 col-xl-3 text-right">
                         <h4 style={{olor: "#F81D2D"}}><strong>Siva</strong></h4>
                         <p className='size'>1st' Steet ,Ram Backery</p>
                         <p className='size'>1833-244-124</p>
@@ -36,6 +47,7 @@ const {customerMobile,customerName,orderDate}= customer
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <h2>INVOICE</h2>
+                        <h5>Order id : {order_id}</h5>
                         
                     </div>
                 </div>
@@ -97,10 +109,10 @@ const {customerMobile,customerName,orderDate}= customer
 							    </td>
                             </tr>
                             <tr style={{color: "#F81D2D"}}>
-                                <td class="text-right"><h4><strong>Total:</strong></h4></td>
+                                <td class="text-right"><h4><strong className='dd'>Total:</strong></h4></td>
                                 <td></td>
                                 <td></td>
-                                <td class="text-left"><h4><strong> {payment.Total} </strong></h4></td>
+                                <td class="text-left"><h4><strong className='dd'> {payment.Total} </strong></h4></td>
                             </tr>
                         </tbody>
                     </table>
@@ -113,6 +125,10 @@ const {customerMobile,customerName,orderDate}= customer
                         <p className='size'><b>Customer : </b>{customerName}</p>
                        
                         <p className='size'><b>Mobile Number : </b>{customerMobile}</p>
+                        <p className='size'><b>Payment Mode : </b>{paymenttype}</p>
+                        {
+                           paymenttype === "Offline_payment" ? null : (<p className='size'><b>Payment id : </b>{payment_id}</p>)
+                        }
                         
                         <p className='size'><b>Date : </b>{orderDate}</p>
                         
@@ -128,6 +144,14 @@ const {customerMobile,customerName,orderDate}= customer
         </div>
     </div>
 </div>
+</div>
+<div className='d-flex justify-content-center'>
+<button className='ww' onClick={()=>{
+    window.print()
+}}> Print Invoice</button>
+       <button className='ww' onClick={()=>{
+        navigate('/user-portal')
+       }}>Add New Order</button>
 </div>
 </>
   )

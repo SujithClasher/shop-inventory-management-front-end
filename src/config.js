@@ -1,3 +1,4 @@
 export const env = {
-    api : "https://inventorymanagementz.herokuapp.com"
+    api : "http://localhost:4000",
+    // api : "https://inventorymanagementz.herokuapp.com"
 }

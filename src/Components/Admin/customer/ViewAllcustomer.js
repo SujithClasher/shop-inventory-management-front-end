@@ -39,7 +39,7 @@ function ViewAllcustomer() {
           <tbody>
             
             <tr>
-              <th scope="row">1</th>
+              <td scope="row">1</td>
               <td>Mark</td>
               <td>Otto</td>
               <td>@mdo</td>

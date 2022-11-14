@@ -30,7 +30,7 @@ function ViewProducts() {
         <div class="d-flex justify-content-end mt-5 m-3 ">
           <Search data = { getproducts } lable ={"product,Brand,category,Rate,Quantity"}/>
         </div>
-        <div className="m-3 table_responsive">
+        <div className="m-3 table_responsive  mx-auto ff">
           <table className="table table-bordered text-center">
             <thead>
               <tr>
@@ -49,7 +49,7 @@ function ViewProducts() {
             {
                 products.length > 0 && products.map((item, index) => {
                   return <tr key={index}>
-                    <th scope="row">{index + 1}</th>
+                    <td >{index + 1}</td>
                     <td>{item.brand}</td>
                     <td>{item.category}</td>
                     <td>{item.product}</td>

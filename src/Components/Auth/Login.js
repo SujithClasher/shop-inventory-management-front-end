@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState,useContext } from "react";
 import "./Login.css";
 import { useFormik } from "formik";
 import axios from "axios";
@@ -7,8 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { env } from "../../config";
 import load from "../../asset/loading2.svg";
+import UserContext from "../Context/usercContext";
+
+
 
 function Login() {
+  const context = useContext(UserContext)
+  const {setUsername} = context
+
   let navigate = useNavigate();
   let [loading, setloading] = useState(false);
 
@@ -35,30 +41,27 @@ function Login() {
     onSubmit: async (values) => {
       try {
         setloading(true)
-        let user = await axios.post(`${env.api}/user/login`, values);
-        const { data } = user;
-        const { isAdmin, message, name, statusCode, token } = data;
-        // console.log(data);
-        // console.log("isAdmin ", isAdmin);
-        // console.log("message ", message);
-        // console.log("name ", name);
-        // console.log("statusCode ", statusCode);
-        // console.log("token ", token);
+        let value = await axios.post(`${env.api}/user/login`, values);
+        const { data } = value;
+        const { isAdmin, message, name, statusCode, token,user } = data;
         if (statusCode === 201) {
+          
           setloading(false)
           window.localStorage.setItem("token", token);
           window.localStorage.setItem("name", name);
           window.localStorage.setItem("isAdmin", isAdmin);
+          window.localStorage.setItem("userId", user._id);
           toast.success(message);
 
           setTimeout(() => {
             if(isAdmin){
               navigate("/home");
-            }else{
+            }else{  
+              setUsername(name)     
               navigate("/user-portal")
             }
             
-          }, 700);
+          }, 400);
         }
 
         if (statusCode === 401) {

@@ -1,5 +1,6 @@
 import React,{ useContext } from "react";
 import AdminContext from "../../../Context/adminContext";
+import Search from "../../../Search";
 import "./Inventory.css";
 function Inventory() {
   const context = useContext(AdminContext);
@@ -13,16 +14,7 @@ function Inventory() {
           <h6>Inventory </h6>
         </div>
         <div class="d-flex justify-content-end mt-5 m-3 ">
-          <form class="form-inline d-flex">
-            <input
-              class="form-control mr-sm-2 me-2 shadow-none"
-              type="search"
-              placeholder="Search"
-            />
-            <button class="btn btn-outline-success  my-sm-0" type="submit">
-              Search
-            </button>
-          </form>
+        <Search data={ "" } lable={"Products"}/>
         </div>
         <div className="m-3 table_responsive">
           <table className="table table-bordered  text-center">
@@ -40,7 +32,7 @@ function Inventory() {
               {
                 dashboardProduct.length > 0 && dashboardProduct.map((item, index) => {
                   return <tr key={index}>
-                    <th scope="row">{index + 1}</th>
+                    <td >{index + 1}</td>
                     <td>{item.product}</td>
                     <td>{item.bought}</td>
                     <td>{item.sold}</td>

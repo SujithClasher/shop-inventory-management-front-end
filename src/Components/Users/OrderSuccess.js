@@ -1,20 +1,25 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import './OrderSuccess.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useParams} from 'react-router-dom';
+import UserContext from '../Context/usercContext';
 function OrderSuccess() {
+  const context = useContext(UserContext);
+    const { getInvoice} = context;
     let navigate = useNavigate();
+    let params = useParams()
 
   return (
  <>
- <div className='ff'>
- <div class="card">
-      <div className='ss'>
+ <div className='ffs'>
+ <div class="cardss">
+      <div className='ssk'>
         <span class="checkmark">✓</span>
       </div>
         <h1 className='h1'>Success</h1> 
        <button className='ww' onClick={()=>{
-        navigate('/user-portal/order-success/invoice')
-       }} > Print Invoice</button>
+        getInvoice(params.id)
+        
+       }} > View Invoice</button>
        <button className='ww' onClick={()=>{
         navigate('/user-portal')
        }}>Add New Order</button>

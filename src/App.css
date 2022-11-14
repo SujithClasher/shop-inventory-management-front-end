@@ -10,17 +10,17 @@
     color: white;
 }
 .comman{
-    border: 3px solid #AA47BD;
+   
     border-top: none;
     margin: 10px;
     padding: -30px;
-    border-radius: 5px;
+    
    
     
 }
 .comman_head{
     background-color:#AA47BD;
-    border: 1px solid #AA47BD;
+    
 }
 .comman_head > h6{
     padding: 8px;
@@ -38,8 +38,11 @@
     min-width: 150px;
 }
 .table_responsive > table,td,th,tr{
-    border: 2px solid #8A0E4E !important;
+    border: 1px solid #8A0E4E !important;
    padding: -8px;
+}
+th{
+    background-color: #26A244 !important;
 }
 tr:hover {
     background-color: #3F51B6;

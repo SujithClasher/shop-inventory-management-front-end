@@ -17,21 +17,21 @@ function OneViewproduct() {
         <div className="comman_head">
           <h6>View Products </h6>
         </div>
-        <div className='w-75 mx-auto p-4 '>
+        <div >
           <form>
 
 
             <div className="container">
               <div className="row">
 
-                <div className=' col-sm-12 col-md-6'>
-                  <div class="text-center">
-                    <img src={image ? image : img} class="rounded" alt="img" width="250px" height="250px" />
+                <div className=' col-sm-12 col-md-6  mx-auto d-flex justify-content-center align-items-center'>
+                  <div >
+                    <img src={image ? image : img} class="rounded" alt="img" width="300px" height="300px" />
 
                   </div>
                 </div>
 
-                <div className='col-sm-12 col-md-6'>
+                <div className='col-sm-12 col-md-6  '>
                   <div class="form-group">
                     <label>Brand</label>
                     <input type="text" class="form-control shadow-none" value = {viewProducts.brand} readonly/>
@@ -54,7 +54,7 @@ function OneViewproduct() {
                     <label >Quantity</label>
                     <input type="text" class="form-control shadow-none"  value = {viewProducts.quantity} readonly/>
 
-                  </div>
+                  </div >
                   <NavLink to='/home/products'> <button type="submit" class="btn btn-secondary mt-3 ms-3">Back</button></NavLink>
                 </div>
               </div>

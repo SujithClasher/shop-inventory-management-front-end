@@ -33,7 +33,7 @@ function ViewCategory() {
            <Search data ={getCategory} lable = {"Category"}/>
           </div>
         </div>
-        <div className="m-3 table_responsive">
+        <div className="m-3 table_responsive order-table mx-auto">
           <table class="table text-center">
             <thead>
               <tr>
@@ -47,7 +47,7 @@ function ViewCategory() {
             {
                 category.length > 0 && category.map((item, index) => {
                   return <tr key={index}>
-                    <th scope="row">{index + 1}</th>
+                    <td >{index + 1}</td>
                     <td>{item.category}</td>
                     <td>
                       <button type="button" class="btn btn-success" onClick={() => {

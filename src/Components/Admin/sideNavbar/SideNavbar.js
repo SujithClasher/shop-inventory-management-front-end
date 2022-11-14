@@ -1,10 +1,10 @@
 import React from 'react'
 import "./SideNavbar.css";
 import NavItems from "./NavItems";
-
+import { useNavigate } from 'react-router-dom';
 
 function SideNavbar() {
-  
+let navigate=useNavigate()
 
   const data = [
     {
@@ -43,7 +43,12 @@ function SideNavbar() {
         {data.length > 0 && data.map((val, index) => {
           return <NavItems values={val} key={index}  />;
         })}
+          <h4
+          onClick={() => {
+            navigate("/");
+          }}>Logout</h4>
       </div>
+     
     </div>
   );
 }

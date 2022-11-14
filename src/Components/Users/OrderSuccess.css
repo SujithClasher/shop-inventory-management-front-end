@@ -1,13 +1,13 @@
-.ff{
+.ffs{
     text-align: center;
         padding: 40px 0;
         background: #EBF0F5;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 91vh;
+        min-height: 92vh;
 }
-.card {
+.cardss {
     background: white;
     padding: 60px;
     border-radius: 4px;
@@ -15,7 +15,7 @@
     display: inline-block;
     margin: 0 auto;
   }
-  .ss{
+  .ssk{
     border-radius:200px; 
     height:200px; 
     width:200px; 

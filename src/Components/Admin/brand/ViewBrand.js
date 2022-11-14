@@ -32,7 +32,7 @@ function ViewBrand() {
         <div class="d-flex justify-content-end mt-5 m-3">
         <Search data = {getBrand} lable = {"Brand"}/>
         </div>
-        <div className="m-3 table_responsive text-center">
+        <div className="m-3 table_responsive text-center order-table mx-auto">
           <table class="table">
             <thead>
               <tr>
@@ -45,7 +45,7 @@ function ViewBrand() {
               {
                 brand.length > 0 && brand.map((item, index) => {
                   return <tr key={index}>
-                    <th scope="row">{index + 1}</th>
+                    <td>{index + 1}</td>
                     <td>{item.brand}</td>
                     <td>
                       <button type="button" class="btn btn-success" onClick={() => {

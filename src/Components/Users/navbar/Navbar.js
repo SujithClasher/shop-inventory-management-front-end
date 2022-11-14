@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import './Navbarz.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faXmark,faUser } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
+import UserContext from '../../Context/usercContext'
 
 
 function Navbar() {
+  const context = useContext(UserContext)
+  const {username} = context
   let navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleClick = () => setOpen(!open);
@@ -14,17 +17,28 @@ function Navbar() {
     <>
       <nav>
         <div className='nav_left'>
-          <h5>Shop Inventory Management</h5>
+          <h5><span className='hed'>Shop Inventory Management</span></h5>
 
         </div>
-        <div className='nav_right' id={open ? null : "hide"} >
-          <div className='d-flex justify-content-center align-items-center '>
-            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" srcset="" width="35px" height="35px"/>
+       <div>
+     
+       </div>
+       
+        <div className='nav_rights' id={open ? null : "hides"} >
+        <h5 className='me-2'>User : {username ? username : window.localStorage.getItem("name") }</h5>
+          <div className='d-flex justify-content-center align-items-center ' onClick={closeMenu}>
+          <span className='dd' onClick={() => {
+              navigate("/user-portal/profile-page");
+            }} ><FontAwesomeIcon icon={faUser} /> Profile</span>
           </div>
-          <h5 className='me-2'>User</h5>
+          
           <div onClick={closeMenu}>
             <h5
             onClick={() => {
+              window.localStorage.removeItem("token")
+              window.localStorage.removeItem("name")
+              window.localStorage.removeItem("isAdmin")
+              window.localStorage.removeItem("userId")
               navigate("/");
             }}>Logout</h5>
           </div>

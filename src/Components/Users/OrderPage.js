@@ -1,24 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useFormik } from 'formik';
 import './OrderPage.css'
-import AdminContext from '../Context/adminContext';
-import { useNavigate } from 'react-router-dom';
+import UserContext from '../Context/usercContext';
 
 function OrderPage() {
-  let navigate = useNavigate()
+  const context = useContext(UserContext);
+  const { product, setOrders ,setOrderz ,username} = context;
   const [order, setOrder] = useState([])
-  const [customerDetail,SetCustomerDetail] = useState({});
-  const context = useContext(AdminContext);
-  const [payment,setPayment] = useState({});
-  const { products,setOrders } = context
+  const [customerDetail, SetCustomerDetail] = useState({});
+  const [payment, setPayment] = useState({});
+  const [quantitys, setQuantitys] = useState({});
+  const [paymentType, setPaymentType] = useState("");
+  const [paymenterror, setPaymentError] = useState("");
+
 
 
   const formiks = useFormik({
     initialValues: {
-      orderDate:  new Date().toLocaleDateString("de-DE"),
+      orderDate: new Date().toLocaleDateString("de-DE"),
       customerName: "",
       customerMobile: "",
-
     },
     validate: (values) => {
       const errors = {};
@@ -29,7 +30,6 @@ function OrderPage() {
         errors.customerName = "Enter Customer Name";
       }
       function validateMobile(mobilenumber) {
-        // var mob_regex = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/;
         var regmm = "^([0|+[0-9]{1,5})?([7-9][0-9]{9})$";
         var regmob = new RegExp(regmm);
         if (values.customerMobile.length === 0) {
@@ -41,21 +41,19 @@ function OrderPage() {
           return (errors.customerMobile = "Please provide a valid mobile number");
         }
       }
-
       validateMobile(values.customerMobile);
       return errors;
     },
-
     onSubmit: async (values) => {
       SetCustomerDetail(values)
     },
   });
 
+
   const formik = useFormik({
     initialValues: {
       product_id: "",
       quantity: "",
-
     },
     validate: (values) => {
       const errors = {};
@@ -67,26 +65,31 @@ function OrderPage() {
       }
       return errors;
     },
-
     onSubmit: async (values) => {
+      setQuantitys({})
       formik.resetForm()
       cart(values)
     },
   });
 
   const cart = (data) => {
-
     const { quantity, product_id } = data;
-    let pName = products.find((item) => item._id === product_id);
-    let value = {
-      id: pName._id,
-      product: pName.product,
-      rate: pName.rate,
-      quantity,
-      total: pName.rate * quantity,
+    let same = order.find((item) =>{
+      return  item.id === product_id;
+    });
+    if(!same){
+      let pName = product.find((item) => item._id === product_id);
+      let value = {
+        id: pName._id,
+        product: pName.product,
+        rate: pName.rate,
+        quantity,
+        total: pName.rate * quantity,
+      }
+      setOrder([...order, value])
+    }else{
+      alert("already in cart")
     }
-    
-    setOrder([...order, value])
     
   }
 
@@ -96,142 +99,148 @@ function OrderPage() {
     setOrder(values);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     totalAmount()
-  },[order])
+  }, [order])
 
-  const totalAmount = async()=>{
-     const amount = ()=>{
-            let value = order.length > 0 && order.map((item)=> item.total).reduce((initialValue,currentValue)=> initialValue + currentValue);
-       return value;
-     }
-     const gst = (quantity, percent)=>{
+  const totalAmount = async () => {
+    const amount = () => {
+      let value = order.length > 0 && order.map((item) => item.total).reduce((initialValue, currentValue) => initialValue + currentValue);
+      return value;
+    }
+    const gst = (quantity, percent) => {
       let value = (quantity * percent) / 100;
       return value;
-     };
-      const discount = (quantity, percent)=>{
-        let value = (quantity * percent) / 100;
+    };
+    const discount = (quantity, percent) => {
+      let value = (quantity * percent) / 100;
       return value;
-      }
-
- let Amount =  await amount();
-  let Gst =  await gst(Number(Amount),18);
-  let Discount = await discount(Number(Amount),10);
-  console.log(order);
-let payment = {
-
-  Amount,
-  Gst,
-  Discount,
-  Total: Amount+Gst-Discount
-  
-}
-setPayment(payment);
-  }
-  const placeOrder = (customer,order,payment)=>{
- 
-    let orderDetails; 
-    if(Object.keys(customer).length && order.length > 0){
-            orderDetails = {
-              customer,
-              order,
-              payment
-            }
-            setOrders(orderDetails)
-            navigate("/user-portal/razorpay")
-            
-            
-            
-    }else{
-      alert("enter customer || product")
     }
-    console.log(orderDetails);
+    let Amount = await amount();
+    let Gst = await gst(Number(Amount), 18);
+    let Discount = await discount(Number(Amount), 10);
+    let payment = {
+      Amount,
+      Gst,
+      Discount,
+      Total: parseInt(Amount + Gst - Discount)
+    }
+    setPayment(payment);
   }
 
-  
-  
+  const placeOrder = (customer, order, payment, paymenttype) => {
+    let orderDetails;
+    let x = username ? username : window.localStorage.getItem("name") 
+    let y = window.localStorage.getItem("userId")
+    if (Object.keys(customer).length > 0) {
+      if (order.length > 0) {
+        if (paymenttype) {
+          orderDetails = {
+            customer,
+            order,
+            payment,
+            paymenttype,
+            billerName : x,
+            billerId : y,
+          }
+          
+          setOrders(orderDetails);
+          setOrderz(orderDetails);
+        } else {
+          setPaymentError("Select your Payment Mode")
+          alert("Enter Payment Mode")
+        }
+      } else {
+        alert("Enter Your Product Details")
+      }
+    } else {
+      alert("Enter Your Customer Details")
+    }
+  }
+
+  const quantity = (id) => {
+    let data = product.find((item) => item._id === id);
+    setQuantitys(data);
+  }
+
   return (
     <div className='order-page' >
-      <h6>New Order</h6>
+      <h6>Order Page</h6>
       <div className="content">
+        <div className="container">
+          <div className=' row  mx-auto w-75'>
+            <div className='col-sm-12 col-md-6' >
+              <form onSubmit={(values) => { formiks.handleSubmit(values); }}>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Order Date</label>
+                  <input type="text" class="form-control shadow-none" id="exampleInputEmail1"
+                    value={new Date().toLocaleDateString("de-DE")}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    name="orderDate" readOnly />
+                  {formiks.touched.orderDate && formiks.errors.orderDate ? (<div className="error"> {formiks.errors.orderDate}</div>) : null}
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Customer Name</label>
+                  <input type="text" class="form-control shadow-none" id="exampleInputEmail1" placeholder="Enter Customer Name"
+                    value={formiks.values.customerName}
+                    onChange={formiks.handleChange}
+                    onBlur={formiks.handleBlur}
+                    name="customerName" />
+                  {formiks.touched.customerName && formiks.errors.customerName ? (<div className="error"> {formiks.errors.customerName}</div>) : null}
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Mobile Number</label>
+                  <input type="text" class="form-control shadow-none" id="exampleInputEmail1" placeholder="Enter Customer Mobile Number"
+                    value={formiks.values.customerMobile}
+                    onChange={formiks.handleChange}
+                    onBlur={formiks.handleBlur}
+                    name="customerMobile" />
+                  {formiks.touched.customerMobile && formiks.errors.customerMobile ? (<div className="error"> {formiks.errors.customerMobile}</div>) : null}
+                </div>
+                <button type="submit" class="btn btn-success mt-3">Save</button>
+              </form>
+            </div>
 
-        <div className='d-flex justify-content-evenly mx-auto w-75'>
-          <div className=' w-25' >
-        <form onSubmit={(values) => {
-              formiks.handleSubmit(values);
-            }}>
-              
-        <div class="form-group">
-              <label for="exampleInputEmail1">Order Date</label>
-              <input type="text" class="form-control" id="exampleInputEmail1"
-              value={new Date().toLocaleDateString("de-DE")}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  name="orderDate"  readOnly/>
-                    {formiks.touched.orderDate && formiks.errors.orderDate ? (
-                  <div className="error"> {formiks.errors.orderDate}</div>
-                ) : null}
+
+            <div className='col-sm-12 col-md-6' >
+              <form onSubmit={(values) => { formik.handleSubmit(values); }}>
+                <div class="form-group">
+                  <label>Product</label>
+                  <select className="form-select shadow-none" value={formik.values.product_id}
+                    onChange={(e) => { quantity(e.target.value); formik.handleChange(e) }}
+                    onBlur={formik.handleBlur}
+                    name="product_id">
+                    <option selected value="Default">Select a product</option>
+                    {
+                      product.length > 0 && product.map((item, index) => {
+                        return <option key={index} value={item._id} >{item.product}</option>
+                      })
+                    }
+                  </select>
+                  {formik.touched.product_id && formik.errors.product_id ? (<div className="error"> {formik.errors.product_id}</div>) : null}
+                </div>
+                <div class="form-group">
+                  <label >Available in Stock</label>
+                  <input type="text" class="form-control shadow-none" value={Object.keys(quantitys).length && quantitys ? (quantitys.availableInStock !== 0 ? quantitys.availableInStock : "Out Of Stock") : "Select a Product"} readOnly />
+                </div>
+                {
+                  quantitys.availableInStock !== 0 ? <div class="form-group">
+                    <label >Quantity</label>
+                    <input type="number" class="form-control shadow-none" placeholder="Enter your quantity" value={formik.values.quantity}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      name="quantity"
+                      min={1}
+                      max={quantitys.availableInStock} />
+                    {formik.touched.quantity && formik.errors.quantity ? (<div className="error"> {formik.errors.quantity}</div>) : null}
+                  </div> : null
+                }
+                <button type="submit" class="btn btn-success mt-3" disabled={quantitys.availableInStock === 0} >Add</button>
+              </form>
             </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Customer Name</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Customer Name"
-                  value={formiks.values.customerName}
-                  onChange={formiks.handleChange}
-                  onBlur={formiks.handleBlur}
-                  name="customerName" />
-                    {formiks.touched.customerName && formiks.errors.customerName ? (
-                  <div className="error"> {formiks.errors.customerName}</div>
-                ) : null}
+            <div>
             </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Mobile Number</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Customer Mobile Number"
-              value={formiks.values.customerMobile}
-                  onChange={formiks.handleChange}
-                  onBlur={formiks.handleBlur}
-                  name="customerMobile" />
-                    {formiks.touched.customerMobile && formiks.errors.customerMobile ? (
-                  <div className="error"> {formiks.errors.customerMobile}</div>
-                ) : null}
-            </div>
-            <button type="submit" class="btn btn-success mt-3">Save</button>
-        </form>
-        </div>
-          <div className=' w-25' >
-            <form onSubmit={(values) => {
-              formik.handleSubmit(values);
-            }}>
-              <div class="form-group">
-                <label>Product</label>
-                <select className="form-select shadow-none" value={formik.values.product_id}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  name="product_id">
-                  <option selected value="Default">Select a product</option>
-                  {
-                    products.length > 0 && products.map((item, index) => {
-                      return <option key={index} value={item._id}>{item.product}</option>
-                    })
-                  }
-                </select>
-                {formik.touched.product_id && formik.errors.product_id ? (
-                  <div className="error"> {formik.errors.product_id}</div>
-                ) : null}
-              </div>
-              <div class="form-group">
-                <label >Quantity</label>
-                <input type="number" class="form-control shadow-none" placeholder="Enter your quantity" value={formik.values.quantity}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  name="quantity" />
-                {formik.touched.quantity && formik.errors.quantity ? (
-                  <div className="error"> {formik.errors.quantity}</div>
-                ) : null}
-              </div>
-              <button type="submit" class="btn btn-success mt-3">Add</button>
-            </form>
-          </div>
-          <div>
           </div>
         </div>
         <div className=" table_responsive order-table">
@@ -260,33 +269,42 @@ setPayment(payment);
                   </tr>
                 })
               }
-
-
             </tbody>
           </table>
         </div>
         <div className='w-50 mx-auto'>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">Sub Total</label>
-            <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={  payment ? (payment.Amount === false ? `Rs : ${0}` : `Rs : ${payment.Amount}`  ): null} readOnly/>
+          <div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Sub Total</label>
+              <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={payment ? (payment.Amount === false ? `Rs : ${0}` : `Rs : ${payment.Amount}`) : null} readOnly />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">GST (18%)</label>
+              <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={payment ? `Rs : ${payment.Gst}` : null} readOnly />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Discount (10%)</label>
+              <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={payment ? `Rs : ${payment.Discount}` : null} readOnly />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Total Amount</label>
+              <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={payment ? `Rs : ${payment.Total}` : null} readOnly />
+            </div>
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">GST (18%)</label>
-            <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={ payment ? `Rs : ${payment.Gst}`:null}  readOnly/>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Discount (10%)</label>
-            <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={ payment ? `Rs : ${payment.Discount}`:null}  readOnly/>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Net Total</label>
-            <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={ payment ? `Rs : ${ payment.Total}`:null}  readOnly/>
+            <label>Payment Type</label>
+            <select className="form-select shadow-none" onChange={e => setPaymentType(e.target.value)}>
+              <option selected value="Default">Select a Payment</option>
+              <option value="Offline_payment" >Offline Payment</option>
+              <option value="online_payment" >Online Payment</option>
+            </select>
+            {
+              paymenterror ?  (<div className="error">{paymenterror}</div>) : null
+            }
           </div>
         </div>
-
         <div className='d-flex justify-content-center align-items-center mt-5 mb-5'>
-          <button type="button" onClick={()=>placeOrder(customerDetail,order,payment)} class="btn btn-success">Place Order</button>
+          <button type="button" onClick={() => placeOrder(customerDetail, order, payment, paymentType)} class="btn btn-success">Place Order</button>
         </div>
 
       </div>

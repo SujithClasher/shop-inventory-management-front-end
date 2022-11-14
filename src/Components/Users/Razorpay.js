@@ -1,37 +1,41 @@
+
 import axios from 'axios';
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { env } from '../../config';
-import AdminContext from '../Context/adminContext';
+
+
+import UserContext from '../Context/usercContext';
 
 
 
 function Razorpay() {
-    let navigate = useNavigate()
-    const context = useContext(AdminContext);
-    const { orders } = context;
-const { order,payment,customer } = orders
-// const { Total } = payment
-// const {customerMobile,customerName,orderDate}= customer
-
+  let navigate = useNavigate();
+    const context = useContext(UserContext);
+    const { orders,setOrders } = context;
+const { order,payment,customer ,paymenttype ,billerId,billerName} = orders
+ const { Total } = payment
     const send = async(id)=>{
         let data = {
             payment_id : id,
             order,
             customer,
             payment,
+            paymenttype,
+            billerName,
+            billerId
+            
         }
-        let orderz = await axios.post(`${env.api}/orders/order`, data);
-    console.log(orderz.data);
-    navigate("/user-portal/order-success")
-    }
-    
+      let mongo_id =  await axios.post(`${env.api}/orders/order`, data);
+       setOrders({})
+       
+        navigate(`/user-portal/order-success/${mongo_id.data.id}`)
+      }
       const handleSubmit = ()=>{
-//   console.log(Number(Total));
       var options = {
         key: "rzp_test_kgUEwHuOQmpNz6",
         key_secret:"UFEaoGwrbwHdSxQ0ph2J9TwU",
-        amount: Number(payment.Total) *100,
+        amount: parseInt(Total) *100,
         currency:"INR",
         name:"Inventory Management",
         description:"for testing purpose",
