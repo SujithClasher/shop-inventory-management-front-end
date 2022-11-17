@@ -13,7 +13,7 @@ function Inventory() {
         <div className="comman_head">
           <h6>Inventory </h6>
         </div>
-        <div class="d-flex justify-content-end mt-5 m-3 ">
+        <div className="d-flex justify-content-end mt-5 m-3 ">
         <Search data={ "" } lable={"Products"}/>
         </div>
         <div className="m-3 table_responsive">

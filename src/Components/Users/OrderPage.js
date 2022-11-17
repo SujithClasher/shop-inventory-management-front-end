@@ -171,41 +171,41 @@ function OrderPage() {
           <div className=' row  mx-auto w-75'>
             <div className='col-sm-12 col-md-6' >
               <form onSubmit={(values) => { formiks.handleSubmit(values); }}>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="exampleInputEmail1">Order Date</label>
-                  <input type="text" class="form-control shadow-none" id="exampleInputEmail1"
+                  <input type="text" className="form-control shadow-none" id="exampleInputEmail1"
                     value={new Date().toLocaleDateString("de-DE")}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     name="orderDate" readOnly />
                   {formiks.touched.orderDate && formiks.errors.orderDate ? (<div className="error"> {formiks.errors.orderDate}</div>) : null}
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="exampleInputEmail1">Customer Name</label>
-                  <input type="text" class="form-control shadow-none" id="exampleInputEmail1" placeholder="Enter Customer Name"
+                  <input type="text" className="form-control shadow-none" id="exampleInputEmail1" placeholder="Enter Customer Name"
                     value={formiks.values.customerName}
                     onChange={formiks.handleChange}
                     onBlur={formiks.handleBlur}
                     name="customerName" />
                   {formiks.touched.customerName && formiks.errors.customerName ? (<div className="error"> {formiks.errors.customerName}</div>) : null}
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="exampleInputEmail1">Mobile Number</label>
-                  <input type="text" class="form-control shadow-none" id="exampleInputEmail1" placeholder="Enter Customer Mobile Number"
+                  <input type="text" className="form-control shadow-none" id="exampleInputEmail1" placeholder="Enter Customer Mobile Number"
                     value={formiks.values.customerMobile}
                     onChange={formiks.handleChange}
                     onBlur={formiks.handleBlur}
                     name="customerMobile" />
                   {formiks.touched.customerMobile && formiks.errors.customerMobile ? (<div className="error"> {formiks.errors.customerMobile}</div>) : null}
                 </div>
-                <button type="submit" class="btn btn-success mt-3">Save</button>
+                <button type="submit" className="btn btn-success mt-3">Save</button>
               </form>
             </div>
 
 
             <div className='col-sm-12 col-md-6' >
               <form onSubmit={(values) => { formik.handleSubmit(values); }}>
-                <div class="form-group">
+                <div className="form-group">
                   <label>Product</label>
                   <select className="form-select shadow-none" value={formik.values.product_id}
                     onChange={(e) => { quantity(e.target.value); formik.handleChange(e) }}
@@ -220,14 +220,14 @@ function OrderPage() {
                   </select>
                   {formik.touched.product_id && formik.errors.product_id ? (<div className="error"> {formik.errors.product_id}</div>) : null}
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label >Available in Stock</label>
-                  <input type="text" class="form-control shadow-none" value={Object.keys(quantitys).length && quantitys ? (quantitys.availableInStock !== 0 ? quantitys.availableInStock : "Out Of Stock") : "Select a Product"} readOnly />
+                  <input type="text" className="form-control shadow-none" value={Object.keys(quantitys).length && quantitys ? (quantitys.availableInStock !== 0 ? quantitys.availableInStock : "Out Of Stock") : "Select a Product"} readOnly />
                 </div>
                 {
-                  quantitys.availableInStock !== 0 ? <div class="form-group">
+                  quantitys.availableInStock !== 0 ? <div className="form-group">
                     <label >Quantity</label>
-                    <input type="number" class="form-control shadow-none" placeholder="Enter your quantity" value={formik.values.quantity}
+                    <input type="number" className="form-control shadow-none" placeholder="Enter your quantity" value={formik.values.quantity}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       name="quantity"
@@ -236,7 +236,7 @@ function OrderPage() {
                     {formik.touched.quantity && formik.errors.quantity ? (<div className="error"> {formik.errors.quantity}</div>) : null}
                   </div> : null
                 }
-                <button type="submit" class="btn btn-success mt-3" disabled={quantitys.availableInStock === 0} >Add</button>
+                <button type="submit" className="btn btn-success mt-3" disabled={quantitys.availableInStock === 0} >Add</button>
               </form>
             </div>
             <div>
@@ -265,7 +265,7 @@ function OrderPage() {
                     <th>{item.rate}</th>
                     <th>{item.quantity}</th>
                     <th>{item.total}</th>
-                    <th><button onClick={() => handleRemove(index)} class="btn btn-danger mt-3">Delete</button></th>
+                    <th><button onClick={() => handleRemove(index)} className="btn btn-danger mt-3">Delete</button></th>
                   </tr>
                 })
               }
@@ -274,24 +274,24 @@ function OrderPage() {
         </div>
         <div className='w-50 mx-auto'>
           <div>
-            <div class="form-group">
+            <div className="form-group">
               <label for="exampleInputEmail1">Sub Total</label>
-              <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={payment ? (payment.Amount === false ? `Rs : ${0}` : `Rs : ${payment.Amount}`) : null} readOnly />
+              <input type="text" className="form-control shadow-none" id="exampleInputEmail1" value={payment ? (payment.Amount === false ? `Rs : ${0}` : `Rs : ${payment.Amount}`) : null} readOnly />
             </div>
-            <div class="form-group">
+            <div className="form-group">
               <label for="exampleInputEmail1">GST (18%)</label>
-              <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={payment ? `Rs : ${payment.Gst}` : null} readOnly />
+              <input type="text" className="form-control shadow-none" id="exampleInputEmail1" value={payment ? `Rs : ${payment.Gst}` : null} readOnly />
             </div>
-            <div class="form-group">
+            <div className="form-group">
               <label for="exampleInputEmail1">Discount (10%)</label>
-              <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={payment ? `Rs : ${payment.Discount}` : null} readOnly />
+              <input type="text" className="form-control shadow-none" id="exampleInputEmail1" value={payment ? `Rs : ${payment.Discount}` : null} readOnly />
             </div>
-            <div class="form-group">
+            <div className="form-group">
               <label for="exampleInputEmail1">Total Amount</label>
-              <input type="text" class="form-control shadow-none" id="exampleInputEmail1" value={payment ? `Rs : ${payment.Total}` : null} readOnly />
+              <input type="text" className="form-control shadow-none" id="exampleInputEmail1" value={payment ? `Rs : ${payment.Total}` : null} readOnly />
             </div>
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label>Payment Type</label>
             <select className="form-select shadow-none" onChange={e => setPaymentType(e.target.value)}>
               <option selected value="Default">Select a Payment</option>
@@ -304,7 +304,7 @@ function OrderPage() {
           </div>
         </div>
         <div className='d-flex justify-content-center align-items-center mt-5 mb-5'>
-          <button type="button" onClick={() => placeOrder(customerDetail, order, payment, paymentType)} class="btn btn-success">Place Order</button>
+          <button type="button" onClick={() => placeOrder(customerDetail, order, payment, paymentType)} className="btn btn-success">Place Order</button>
         </div>
 
       </div>

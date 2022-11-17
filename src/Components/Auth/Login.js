@@ -54,11 +54,14 @@ function Login() {
           toast.success(message);
 
           setTimeout(() => {
-            if(isAdmin){
+            if(isAdmin === "admin"){
               navigate("/home");
-            }else{  
+            }
+            else if(isAdmin === "user"){  
               setUsername(name)     
               navigate("/user-portal")
+            }else{
+              alert("PLZ wait Admin allowed your request")
             }
             
           }, 400);

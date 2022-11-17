@@ -1,18 +1,32 @@
-import React,{ useContext } from 'react'
-import{NavLink, useParams} from 'react-router-dom'
-import AdminContext from '../../Context/adminContext';
-function ViewOneuser() {
-  let context = useContext(AdminContext)
-  let params = useParams();
-  const {order} = context
-  
-    let data = order.filter((item)=>item.billerId === params.id)
-  console.log(data);
-  return (
-    <div>
-      <div className='w-100 bg-danger p-2'>Order History</div>
-      <div>
-      <div className="m-3 table_responsive">
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { env } from '../../config';
+import './YourOrder.css'
+function YourOrder() {
+    const [order, setOrder] = useState([])
+
+    const getOrder = async (id) => {
+        try {
+            let value = await axios.get(`${env.api}/orders/your-order/${id}`);
+            const { data } = value;
+            setOrder(data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        let x = window.localStorage.getItem("userId")
+        getOrder(x)
+    }, [])
+
+    console.log(order);
+    return (
+        <div>
+            <div className='p-3'>
+                <h2>My Order</h2>
+            </div>
+            <div className="m-3 table_responsive">
           <table className="table table-bordered text-center">
             <thead>
               <tr>
@@ -29,8 +43,8 @@ function ViewOneuser() {
             </thead>
             <tbody>
               {
-                data.length > 0 && data ?  (
-                  data.length > 0 && data.map((item,index)=>{
+                order.length > 0 && order ?  (
+                  order.length > 0 && order.map((item,index)=>{
                     return <tr key={index}>
                             <td>{index +1}</td>
                             <td>{item.customer.orderDate}</td>
@@ -47,9 +61,9 @@ function ViewOneuser() {
                                 <hr className=' p-1'/>
                                 </>
                             })}</td>
-                            <td><span> <span className='error'>Product Amount</span> : Rs : - {item.payment.Amount}</span><br />
+                            <td><span> <span className='error'>Product Amount</span> : Rs : -  {item.payment.Amount}</span><br />
                             <span> <span className='error'>Discount</span> : Rs : - {item.payment.Discount}</span><br />
-                            <span> <span className='error'>GST</span> :Rs : -  {item.payment.Gst}</span><br />
+                            <span> <span className='error'>GST</span> : Rs : - {item.payment.Gst}</span><br />
                             <hr />
                             <span> <span className='error'>Total</span> : Rs : - {item.payment.Total}</span><br />
                             
@@ -63,11 +77,8 @@ function ViewOneuser() {
             </tbody>
           </table>
         </div>
-      </div>
-
-<NavLink to='/home/users'> <button type="submit" className="btn btn-success ms-3">Back</button> </NavLink>
-    </div>
-  )
+        </div>
+    )
 }
 
-export default ViewOneuser
+export default YourOrder

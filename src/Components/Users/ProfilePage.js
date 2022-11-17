@@ -149,14 +149,14 @@ const [pic,setPic] =  useState("");
         <div className="row">
             <div className='col-sm-12 col-md-6 d-flex justify-content-center align-items-center'>
             <div className=''>
-            <img src={image? image : img} class="img-r" alt="img" width="250px" height="250px"/>
+            <img src={image? image : img} className="img-r" alt="img" width="250px" height="250px"/>
             </div>
             </div>
             <div  className='col-sm-12 col-md-6'>
                 
-            <div class="form-group mt-5">
+            <div className="form-group mt-5">
                   <label for="exampleInputEmail1">Name</label>
-                  <input type="text" class="form-control shadow-none" id="exampleInputEmail1" placeholder=' Enter Your Name'
+                  <input type="text" className="form-control shadow-none" id="exampleInputEmail1" placeholder=' Enter Your Name'
                    value={formik.values.name }
                    onChange={formik.handleChange}
                    onBlur={formik.handleBlur}
@@ -164,9 +164,9 @@ const [pic,setPic] =  useState("");
                   />
                    {formik.touched.name && formik.errors.name ? (<div className="error"> {formik.errors.name}</div>) : null}
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Email Address'
+                <input type="email" className="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Email Address'
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -175,9 +175,9 @@ const [pic,setPic] =  useState("");
                   />
                    {formik.touched.email && formik.errors.email ? (<div className="error"> {formik.errors.email}</div>) : null}
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="exampleInputEmail1">Mobile Number</label>
-                  <input type="number" class="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Mobile Number'
+                  <input type="number" className="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Mobile Number'
                   value={formik.values.mobile}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -185,9 +185,9 @@ const [pic,setPic] =  useState("");
                   />
                    {formik.touched.mobile && formik.errors.mobile ? (<div className="error"> {formik.errors.mobile}</div>) : null}
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="exampleInputEmail1">Age</label>
-                  <input type="number" class="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Age'
+                  <input type="number" className="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Age'
                   value={formik.values.age}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -196,9 +196,9 @@ const [pic,setPic] =  useState("");
                   />
                    {formik.touched.age && formik.errors.age ? (<div className="error"> {formik.errors.age}</div>) : null}
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="exampleInputEmail1">Date Of Birth</label>
-                 <input type="date" class="form-control shadow-none" id="exampleInputEmail1"
+                 <input type="date" className="form-control shadow-none" id="exampleInputEmail1"
                   value={formik.values.dateOfBirth}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -206,9 +206,9 @@ const [pic,setPic] =  useState("");
                   />
                    {formik.touched.dateOfBirth && formik.errors.dateOfBirth ? (<div className="error"> {formik.errors.dateOfBirth}</div>) : null}
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="exampleInputEmail1">Update Profile Image</label>
-                 <input type="url" class="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Update Profile Image'
+                 <input type="url" className="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Update Profile Image'
                   value={formik.values.profileUrl}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -216,15 +216,15 @@ const [pic,setPic] =  useState("");
                   />
                    {formik.touched.profileUrl && formik.errors.profileUrl ? (<div className="error"> {formik.errors.profileUrl}</div>) : null}
                 </div>
-                <button type="submit" class="btn btn-success mt-4 mb-3">Update</button>
+                <button type="submit" className="btn btn-success mt-4 mb-3">Update</button>
             </div>
         </div>
         </form>
         <form onSubmit={(values) => { formik1.handleSubmit(values)}}>
         <div className=''>
-        <div class="form-group">
+        <div className="form-group">
                   <label for="exampleInputEmail1">Old Password</label>
-                  <input type="password" class="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Old Password'
+                  <input type="password" className="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Old Password'
                   value={formik1.values.oldPassword}
                   onChange={formik1.handleChange}
                   onBlur={formik1.handleBlur}
@@ -232,9 +232,9 @@ const [pic,setPic] =  useState("");
                   />
                   {formik1.touched.oldPassword && formik1.errors.oldPassword ? (<div className="error"> {formik1.errors.oldPassword}</div>) : null}
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="exampleInputEmail1">New Password</label>
-                  <input type="password" class="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your New Password'
+                  <input type="password" className="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your New Password'
                   value={formik1.values.newPassword}
                   onChange={formik1.handleChange}
                   onBlur={formik1.handleBlur}
@@ -242,9 +242,9 @@ const [pic,setPic] =  useState("");
                   />
                   {formik1.touched.newPassword && formik1.errors.newPassword ? (<div className="error"> {formik1.errors.newPassword}</div>) : null}
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="exampleInputEmail1">Conform Password</label>
-                  <input type="password" class="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Conform Password'
+                  <input type="password" className="form-control shadow-none" id="exampleInputEmail1" placeholder='Enter Your Conform Password'
                   value={formik1.values.conformPassword}
                   onChange={formik1.handleChange}
                   onBlur={formik1.handleBlur}
@@ -252,7 +252,7 @@ const [pic,setPic] =  useState("");
                   />
                   {formik1.touched.conformPassword && formik1.errors.conformPassword ? (<div className="error"> {formik1.errors.conformPassword}</div>) : null}
                 </div>
-                <button type="submit" class="btn btn-success mt-4">Update</button>
+                <button type="submit" className="btn btn-success mt-4">Update</button>
         </div>
         </form>
     </div>

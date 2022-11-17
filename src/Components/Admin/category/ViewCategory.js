@@ -19,7 +19,7 @@ function ViewCategory() {
       <div className="comman_header">Home/Category</div>
       <div className="d-flex justify-content-end me-2">
         <NavLink to="/home/category/add-category">
-          <button type="button" class="btn btn-success">
+          <button type="button" className="btn btn-success">
             Add Category
           </button>
         </NavLink>
@@ -28,13 +28,13 @@ function ViewCategory() {
         <div className="comman_head">
           <h6>Category </h6>
         </div>
-        <div class="d-flex justify-content-end mt-5 m-3">
-          <div class="form-inline d-flex" >
+        <div className="d-flex justify-content-end mt-5 m-3">
+          <div className="form-inline d-flex" >
            <Search data ={getCategory} lable = {"Category"}/>
           </div>
         </div>
         <div className="m-3 table_responsive order-table mx-auto">
-          <table class="table text-center">
+          <table className="table text-center">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -50,12 +50,12 @@ function ViewCategory() {
                     <td >{index + 1}</td>
                     <td>{item.category}</td>
                     <td>
-                      <button type="button" class="btn btn-success" onClick={() => {
+                      <button type="button" className="btn btn-success" onClick={() => {
                         handleEdit(item._id)
                       }}>
                         Edit
                       </button>
-                      <button type="button" class="btn btn-secondary ms-2" onClick={() => {
+                      <button type="button" className="btn btn-secondary ms-2" onClick={() => {
                         handledelete(item._id)
                       }}>
                         Delete

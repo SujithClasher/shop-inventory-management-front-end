@@ -19,7 +19,7 @@ function ViewProducts() {
     <>
      <div className="comman_header">Home/Products</div>
       <div className="d-flex justify-content-end me-2">
-        <NavLink to="/home/products/add-products"><button type="button" class="btn btn-success">Add Products</button></NavLink>
+        <NavLink to="/home/products/add-products"><button type="button" className="btn btn-success">Add Products</button></NavLink>
         
       </div>
       <div className="comman">
@@ -27,7 +27,7 @@ function ViewProducts() {
         <div className="comman_head">
           <h6>Products </h6>
         </div>
-        <div class="d-flex justify-content-end mt-5 m-3 ">
+        <div className="d-flex justify-content-end mt-5 m-3 ">
           <Search data = { getproducts } lable ={"product,Brand,category,Rate,Quantity"}/>
         </div>
         <div className="m-3 table_responsive  mx-auto ff">
@@ -58,18 +58,18 @@ function ViewProducts() {
                     <td><img src={item.productImage} alt={item.product} className= "product-img"/> </td>
 
                     <td>
-                    <button type="button" class="btn btn-success mt-1" onClick={() => {
+                    <button type="button" className="btn btn-success mt-1" onClick={() => {
                         handleView(item._id)
                       }}>
                         View
                       </button>
                       
-                      <button type="button" class="btn btn-warning ms-2 mt-1" onClick={() => {
+                      <button type="button" className="btn btn-warning ms-2 mt-1" onClick={() => {
                         handleEdit(item._id)
                       }}>
                         Edit
                       </button>
-                      <button type="button" class="btn btn-secondary ms-2 mt-1" onClick={() => {
+                      <button type="button" className="btn btn-secondary ms-2 mt-1" onClick={() => {
                         handledelete(item._id)
                       }}>
                         Delete

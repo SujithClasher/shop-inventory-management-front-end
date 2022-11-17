@@ -23,18 +23,18 @@ let navigate=useNavigate()
       menuName: "Products",
       to: "/home/products",
     },
-    {
-      menuName: "Orders",
-      to: "/home/orders",
-    },
+    // {
+    //   menuName: "Orders",
+    //   to: "/home/orders",
+    // },
     {
       menuName: "Users",
       to: "/home/users",
     },
-    {
-      menuName: "Customer List",
-      to: "/home/customers",
-    },
+    // {
+    //   menuName: "Customer List",
+    //   to: "/home/customers",
+    // },
   ];
 
   return (

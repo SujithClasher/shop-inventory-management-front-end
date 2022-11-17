@@ -11,9 +11,9 @@ function OrderSuccess() {
   return (
  <>
  <div className='ffs'>
- <div class="cardss">
+ <div className="cardss">
       <div className='ssk'>
-        <span class="checkmark">✓</span>
+        <span className="checkmark">✓</span>
       </div>
         <h1 className='h1'>Success</h1> 
        <button className='ww' onClick={()=>{

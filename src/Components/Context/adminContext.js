@@ -15,7 +15,10 @@ export const AdminProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [dashboardProduct, setDashboardProduct] = useState([]);
     const [dashboardOverview, setDashboardOverview] = useState({});
-   
+    const [user, setUser] = useState([]);
+    const [order, setOrder] = useState([]);
+
+
 
 
     useEffect(() => {
@@ -47,9 +50,15 @@ export const AdminProvider = ({ children }) => {
         getDashboardOverview()
     }, [products]);
 
-    // useEffect(() => {
-    //     invoice()
-    // }, [products]);
+
+    useEffect(() => {
+        getUser()
+    }, []);
+
+
+    useEffect(() => {
+        getOrder()
+    },[]);
 
 
     // const invoice = async (query) => {
@@ -267,7 +276,7 @@ export const AdminProvider = ({ children }) => {
     // Dashboard
 
     const getDashboardProduct = async () => {
-        
+
         try {
             let value = await axios.get(`${env.api}/inventory/dashboard-products`);
             const { data } = value;
@@ -286,9 +295,31 @@ export const AdminProvider = ({ children }) => {
         }
     };
 
+
+    const getUser = async () => {
+        try {
+            let value = await axios.get(`${env.api}/user/user-details`);
+            const { data } = value;
+            setUser(data.data)
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getOrder = async () => {
+        try {
+            let value = await axios.get(`${env.api}/orders/view-order`);
+            const { data } = value;
+            setOrder(data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
-        <AdminContext.Provider value={{ username, setUsername, brand, open, setOpen, getBrand, addBrand, editBrand, deleteBrand, category, addCategory, editCategory, deleteCategory,
-         products, getproducts, addProduct, editProduct, deleteProduct, dashboardProduct, dashboardOverview, getCategory,}}>
+        <AdminContext.Provider value={{
+            username, setUsername, brand, open, setOpen, getBrand, addBrand, editBrand, deleteBrand, category, addCategory, editCategory, deleteCategory,
+            products, getproducts, addProduct, editProduct, deleteProduct, dashboardProduct, dashboardOverview, getCategory, user, getUser, order
+        }}>
             {children}
         </AdminContext.Provider>
     );

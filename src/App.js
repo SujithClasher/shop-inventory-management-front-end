@@ -35,6 +35,7 @@ import OrderSuccess from "./Components/Users/OrderSuccess";
 import Invoice from "./Components/Users/Invoice";
 import { UserProvider } from "./Components/Context/usercContext";
 import ProfilePage from "./Components/Users/ProfilePage";
+import YourOrder from "./Components/Users/YourOrder";
 
 function App() {
 
@@ -83,7 +84,7 @@ function App() {
 
             <Route path="users" element={<Users />}>
               <Route index element={<ViewAlluser />} />
-              <Route path="view-oneuser" element={<ViewOneuser />} />
+              <Route path="user/:id" element={<ViewOneuser />} />
             </Route>
             
             <Route path="customers" element={<Customers />}>
@@ -99,7 +100,7 @@ function App() {
           <Route path="order-success/:id" element={<OrderSuccess />} />
           <Route path="order-success/invoice" element={<Invoice />} />
           <Route path="profile-page" element={<ProfilePage />} />
-
+          <Route path="Your-order" element={<YourOrder />} />
         </Route>
        
 

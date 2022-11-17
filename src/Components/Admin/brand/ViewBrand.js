@@ -20,7 +20,7 @@ function ViewBrand() {
       <div className="comman_header">Home/Brand</div>
       <div className="d-flex justify-content-end me-2">
         <NavLink to="/home/brand/add-brand">
-          <button type="button" class="btn btn-success">
+          <button type="button" className="btn btn-success">
             Add Brand
           </button>
         </NavLink>
@@ -29,11 +29,11 @@ function ViewBrand() {
         <div className="comman_head">
           <h6>Brand </h6>
         </div>
-        <div class="d-flex justify-content-end mt-5 m-3">
+        <div className="d-flex justify-content-end mt-5 m-3">
         <Search data = {getBrand} lable = {"Brand"}/>
         </div>
         <div className="m-3 table_responsive text-center order-table mx-auto">
-          <table class="table">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -48,12 +48,12 @@ function ViewBrand() {
                     <td>{index + 1}</td>
                     <td>{item.brand}</td>
                     <td>
-                      <button type="button" class="btn btn-success" onClick={() => {
+                      <button type="button" className="btn btn-success" onClick={() => {
                         handleEdit(item._id)
                       }}>
                         Edit
                       </button>
-                      <button type="button" class="btn btn-secondary ms-2" onClick={() => {
+                      <button type="button" className="btn btn-secondary ms-2" onClick={() => {
                         handledelete(item._id)
                       }}>
                         Delete

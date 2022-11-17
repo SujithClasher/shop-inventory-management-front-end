@@ -16,10 +16,10 @@ nav{
 }
 
 .nav_left {
- flex: 0.6;
+ flex: 0.3;
  min-width: 500px;
 }
-.nav_left > h5 {
+.nav_left > h6 {
     margin-left: 2rem;
     /* letter-spacing: 1px; */
     padding: 8px 0 ;
@@ -27,7 +27,7 @@ nav{
 }
 .nav_rights {
     display:flex;
-    flex: 0.4;
+    flex: 0.7;
     justify-content: flex-end;
     align-items: center;
     

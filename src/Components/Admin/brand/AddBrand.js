@@ -56,11 +56,11 @@ function AddBrand() {
             {formik.touched.brand && formik.errors.brand ? (
               <div className="error"> {formik.errors.brand}</div>
             ) : null}
-            <button type="submit" class="btn btn-success mt-3">
+            <button type="submit" className="btn btn-success mt-3">
               Save
             </button>
             <NavLink to="/home/brand">
-              <button type="submit" class="btn btn-secondary  mt-3 ms-3">
+              <button type="submit" className="btn btn-secondary  mt-3 ms-3">
                 Cancel
               </button>
             </NavLink>

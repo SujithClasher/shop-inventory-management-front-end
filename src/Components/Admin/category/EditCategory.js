@@ -60,11 +60,11 @@ function EditCategory() {
             {formik.touched.category && formik.errors.category ? (
               <div className="error"> {formik.errors.category}</div>
             ) : null}
-            <button type="submit" class="btn btn-success mt-3">
+            <button type="submit" className="btn btn-success mt-3">
               Save
             </button>
             <NavLink to="/home/category">
-              <button type="submit" class="btn btn-secondary  mt-3 ms-3">
+              <button type="submit" className="btn btn-secondary  mt-3 ms-3">
                 Cancel
               </button>
             </NavLink>

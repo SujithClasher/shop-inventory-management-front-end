@@ -59,7 +59,7 @@ function AddProducts() {
   <form   onSubmit={(values) => {
               formik.handleSubmit(values);
             }}>
-  <div class="form-group">
+  <div className="form-group">
     <label>Brand</label>
     <select className="form-select shadow-none"  id="" value={formik.values.brand}
               onChange={formik.handleChange}
@@ -78,7 +78,7 @@ function AddProducts() {
     
   
   </div>
-  <div class="form-group">
+  <div className="form-group">
     <label className='siva'>Category</label>
     <select className="form-select shadow-none"  id="" value={formik.values.category}
               onChange={formik.handleChange}
@@ -97,9 +97,9 @@ function AddProducts() {
             ) : null}
    
   </div>
-  <div class="form-group">
+  <div className="form-group">
     <label >Product</label>
-    <input type="text" class="form-control shadow-none"  placeholder="Enter your product name" value={formik.values.product}
+    <input type="text" className="form-control shadow-none"  placeholder="Enter your product name" value={formik.values.product}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               name="product"/>
@@ -108,9 +108,9 @@ function AddProducts() {
             ) : null}
   
   </div>
-  <div class="form-group">
+  <div className="form-group">
     <label >Rate</label>
-    <input type="number" class="form-control shadow-none"  placeholder="Enter your amount" value={formik.values.rate}
+    <input type="number" className="form-control shadow-none"  placeholder="Enter your amount" value={formik.values.rate}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               name="rate"/>
@@ -119,9 +119,9 @@ function AddProducts() {
             ) : null}
   
   </div>
-  <div class="form-group">
+  <div className="form-group">
     <label >Quantity</label>
-    <input type="number" class="form-control shadow-none"  placeholder="Enter your quantity" value={formik.values.quantity}
+    <input type="number" className="form-control shadow-none"  placeholder="Enter your quantity" value={formik.values.quantity}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               name="quantity"/>
@@ -130,9 +130,9 @@ function AddProducts() {
             ) : null}
   
   </div>
-  <div class="form-group">
+  <div className="form-group">
     <label > Product Image</label>
-    <input type="url" class="form-control shadow-none"  placeholder="Enter your image url" value={formik.values.productImage}
+    <input type="url" className="form-control shadow-none"  placeholder="Enter your image url" value={formik.values.productImage}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               name="productImage"/>
@@ -143,8 +143,8 @@ function AddProducts() {
   
   
  
-  <button type="submit" class="btn btn-success mt-3">Save</button>
- <NavLink to='/home/products'> <button type="submit" class="btn btn-secondary mt-3 ms-3">cancel</button></NavLink> 
+  <button type="submit" className="btn btn-success mt-3">Save</button>
+ <NavLink to='/home/products'> <button type="submit" className="btn btn-secondary mt-3 ms-3">cancel</button></NavLink> 
 </form>
   </div>
        
