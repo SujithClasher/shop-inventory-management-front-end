@@ -1,4 +1,4 @@
-import React,{ useContext } from "react";
+import React, { useContext } from "react";
 import "./Layout.css";
 import Navbar from "../navbar/Navbar";
 import SideNavbar from "../sideNavbar/SideNavbar";
@@ -8,10 +8,8 @@ import AdminContext from "../../Context/adminContext";
 function Layout() {
   const context = useContext(AdminContext);
   const { open } = context;
- 
   return (
     <div className="main">
-      
       <Navbar />
       <div className="contain">
         <div id="left-side" className={open ? null : " hide "}><SideNavbar /></div>

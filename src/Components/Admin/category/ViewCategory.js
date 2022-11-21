@@ -1,12 +1,17 @@
-import React,{ useContext } from 'react'
+import React, { useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import AdminContext from '../../Context/adminContext';
 import Search from '../../Search';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPenToSquare,faTrash,faPlus } from '@fortawesome/free-solid-svg-icons'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function ViewCategory() {
 
   let navigate = useNavigate();
   const context = useContext(AdminContext);
-  const { category, deleteCategory,getCategory } = context
+  const { category, deleteCategory, getCategory } = context
   const handleEdit = (id) => {
     navigate(`/home/category/edit-category/${id}`)
   }
@@ -20,7 +25,7 @@ function ViewCategory() {
       <div className="d-flex justify-content-end me-2">
         <NavLink to="/home/category/add-category">
           <button type="button" className="btn btn-success">
-            Add Category
+          <span className='cz' ><FontAwesomeIcon icon={ faPlus}/></span> Add Category
           </button>
         </NavLink>
       </div>
@@ -30,7 +35,7 @@ function ViewCategory() {
         </div>
         <div className="d-flex justify-content-end mt-5 m-3">
           <div className="form-inline d-flex" >
-           <Search data ={getCategory} lable = {"Category"}/>
+            <Search data={getCategory} lable={"Category"} />
           </div>
         </div>
         <div className="m-3 table_responsive order-table mx-auto">
@@ -43,8 +48,7 @@ function ViewCategory() {
               </tr>
             </thead>
             <tbody>
-
-            {
+              {
                 category.length > 0 && category.map((item, index) => {
                   return <tr key={index}>
                     <td >{index + 1}</td>
@@ -53,12 +57,12 @@ function ViewCategory() {
                       <button type="button" className="btn btn-success" onClick={() => {
                         handleEdit(item._id)
                       }}>
-                        Edit
+                        <span className='cz' ><FontAwesomeIcon icon={ faPenToSquare}/></span> Edit
                       </button>
                       <button type="button" className="btn btn-secondary ms-2" onClick={() => {
                         handledelete(item._id)
                       }}>
-                        Delete
+                       <span className='cz' ><FontAwesomeIcon icon={ faTrash}/></span>  Delete
                       </button>
                     </td>
                   </tr>
@@ -68,6 +72,7 @@ function ViewCategory() {
           </table>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

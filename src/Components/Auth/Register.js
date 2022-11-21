@@ -56,16 +56,11 @@ function Register() {
       } else if (values.password.length < 8) {
         errors.password = "Your password must be at least 8 characters";
       }
-
-
       if (values.conformPassword !== values.password) {
         errors.conformPassword = "Conform password does not match";
       } else if (values.conformPassword.length === 0) {
         errors.conformPassword = "Enter your conform password";
       }
-
-      
-
       return errors;
     },
 
@@ -144,7 +139,6 @@ function Register() {
               onBlur={formik.handleBlur}
               name="mobile"
             />
-
             {formik.touched.mobile && formik.errors.mobile ? (
               <div className="error"> {formik.errors.mobile}</div>
             ) : null}
@@ -179,7 +173,6 @@ function Register() {
               <div className="error"> {formik.errors.conformPassword}</div>
             ) : null}
           </div>
-
           <button type="submit" className="btns btn" disabled={!formik.isValid}>
                 {loading ? (
               <img
@@ -188,9 +181,7 @@ function Register() {
                 className="spinner"
               />
             ) : " SignUp "}
-
           </button>
-
           <div className="mt-3 new_user">
             <span>
               Already have an account?{" "}

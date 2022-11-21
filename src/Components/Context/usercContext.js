@@ -12,11 +12,10 @@ let UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   let navigate = useNavigate();
-  // console.log("Ram...................");
   const [username, setUsername] = useState("");
   const [product, setProduct] = useState([])
   const [orders, setOrders] = useState({});
-  let [data,setData] = useState({});
+  let [data, setData] = useState({});
 
 
 
@@ -49,7 +48,7 @@ export const UserProvider = ({ children }) => {
     if (paymenttype === "online_payment") {
       navigate("/user-portal/razorpay")
     } else {
-      let mongo_id =  await axios.post(`${env.api}/orders/order`, data);
+      let mongo_id = await axios.post(`${env.api}/orders/order`, data);
       setOrders({});
       navigate(`/user-portal/order-success/${mongo_id.data.id}`)
     }
@@ -59,20 +58,16 @@ export const UserProvider = ({ children }) => {
   const getInvoice = async (id) => {
     try {
       let value = await axios.get(`${env.api}/orders/invoice/${id}`);
-       setData(value.data);
-       navigate(`/user-portal/order-success/invoice`)
+      setData(value.data);
+      navigate(`/user-portal/order-success/invoice`)
     } catch (error) {
       console.log(error);
     }
   };
 
 
-
-
-
-
   return (
-    <UserContext.Provider value={{ username, setUsername, product, orders, setOrders, setOrderz,data ,getInvoice}}>
+    <UserContext.Provider value={{ username, setUsername, product, orders, setOrders, setOrderz, data, getInvoice }}>
       {children}
     </UserContext.Provider>
   );

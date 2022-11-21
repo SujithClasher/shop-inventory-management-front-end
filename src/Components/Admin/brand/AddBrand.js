@@ -2,6 +2,9 @@ import { useFormik } from "formik";
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import AdminContext from "../../Context/adminContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faXmark,faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
+
 
 function AddBrand() {
   const context = useContext(AdminContext);
@@ -12,14 +15,11 @@ function AddBrand() {
     },
     validate: (values) => {
       const errors = {};
-
       if (values.brand.length === 0) {
         errors.brand = "Enter your Brand";
       }
-
       return errors;
     },
-
     onSubmit: async (values) => {
       await addBrand(values);
     },
@@ -57,11 +57,11 @@ function AddBrand() {
               <div className="error"> {formik.errors.brand}</div>
             ) : null}
             <button type="submit" className="btn btn-success mt-3">
-              Save
+            <span className='cz' ><FontAwesomeIcon icon={ faFloppyDisk}/></span> Save
             </button>
             <NavLink to="/home/brand">
               <button type="submit" className="btn btn-secondary  mt-3 ms-3">
-                Cancel
+              <span className='cz' ><FontAwesomeIcon icon={faXmark}/></span> Cancel
               </button>
             </NavLink>
           </form>

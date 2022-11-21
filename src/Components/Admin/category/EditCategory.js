@@ -2,12 +2,11 @@ import { useFormik } from "formik";
 import React, { useContext } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import AdminContext from "../../Context/adminContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faXmark,faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 function EditCategory() {
   const params = useParams();
-
   const { category, editCategory } = useContext(AdminContext);
-
-  // console.log(params.id);
   let viewCategory = category.find((item) => item._id === params.id);
 
   const formik = useFormik({
@@ -20,10 +19,8 @@ function EditCategory() {
       if (values.category.length === 0) {
         errors.category = "Enter your Category";
       }
-
       return errors;
     },
-
     onSubmit: async (values) => {
       await editCategory(values, viewCategory._id);
     },
@@ -32,12 +29,10 @@ function EditCategory() {
   return (
     <div className="add-brand">
       <div className="comman_header mt-3 ">Home/Category/Edit Category</div>
-
       <div className="comman ">
         <div className="comman_head">
           <h6>Edit Category </h6>
         </div>
-
         <div className="d-flex justify-content-center m-5">
           <form
             onSubmit={(values) => {
@@ -61,11 +56,11 @@ function EditCategory() {
               <div className="error"> {formik.errors.category}</div>
             ) : null}
             <button type="submit" className="btn btn-success mt-3">
-              Save
+            <span className='cz' ><FontAwesomeIcon icon={ faFloppyDisk}/></span> Save
             </button>
             <NavLink to="/home/category">
               <button type="submit" className="btn btn-secondary  mt-3 ms-3">
-                Cancel
+              <span className='cz' ><FontAwesomeIcon icon={ faXmark}/></span>  Cancel
               </button>
             </NavLink>
           </form>

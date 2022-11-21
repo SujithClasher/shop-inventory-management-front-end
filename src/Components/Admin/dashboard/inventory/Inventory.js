@@ -1,20 +1,29 @@
-import React,{ useContext } from "react";
+import React, { useContext } from "react";
 import AdminContext from "../../../Context/adminContext";
 import Search from "../../../Search";
 import "./Inventory.css";
 function Inventory() {
   const context = useContext(AdminContext);
-  const { dashboardProduct } = context;
+  const { dashboardProduct ,getDashboardProduct} = context;
   return (
     <div className="mx-auto">
       <div className="comman_header">Dashboard/Inventory</div>
-
       <div className="comman mt-5">
-        <div className="comman_head">
-          <h6>Inventory </h6>
-        </div>
-        <div className="d-flex justify-content-end mt-5 m-3 ">
-        <Search data={ "" } lable={"Products"}/>
+        <div className="d-flex justify-content-between mt-5 m-3 ">
+          <div>
+          <div className="form-group d-flex justify-content-center  align-items-center">
+      <label htmlFor="">Search</label>
+      <input
+        className="form-control mr-sm-2 me-2  ms-2 shadow-none"
+        type="search"
+        placeholder={"Avaliable Stock Value"}
+        onChange={(e) =>getDashboardProduct(e.target.value)}
+      />
+    </div>
+
+          </div>
+          <div></div>
+          <Search data={getDashboardProduct} lable={"Products"} />
         </div>
         <div className="m-3 table_responsive">
           <table className="table table-bordered  text-center">
@@ -28,7 +37,6 @@ function Inventory() {
               </tr>
             </thead>
             <tbody>
-
               {
                 dashboardProduct.length > 0 && dashboardProduct.map((item, index) => {
                   return <tr key={index}>

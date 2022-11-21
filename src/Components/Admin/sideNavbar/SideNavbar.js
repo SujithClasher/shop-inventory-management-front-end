@@ -1,54 +1,48 @@
-import React from 'react'
+import React from "react";
 import "./SideNavbar.css";
 import NavItems from "./NavItems";
-import { useNavigate } from 'react-router-dom';
-
-function SideNavbar() {
-let navigate=useNavigate()
-
+import {faGaugeHigh,faPalette,faUser,faRightFromBracket,faListCheck,faInbox} from '@fortawesome/free-solid-svg-icons'
+function SideNavbar() {  
   const data = [
     {
       menuName: "Dashboard",
       to: "/home",
+      icon:faGaugeHigh,
     },
     {
       menuName: "Brand",
       to: "/home/brand",
+      icon:faPalette,
     },
     {
       menuName: "Category",
       to: "/home/category",
+      icon:faListCheck,
     },
     {
       menuName: "Products",
       to: "/home/products",
+      icon:faInbox,
     },
-    // {
-    //   menuName: "Orders",
-    //   to: "/home/orders",
-    // },
     {
       menuName: "Users",
       to: "/home/users",
+      icon:faUser,
     },
-    // {
-    //   menuName: "Customer List",
-    //   to: "/home/customers",
-    // },
+    {
+      menuName: "Logout",
+      to: "/",
+      icon:faRightFromBracket,
+    },
   ];
-
   return (
-    <div className="sidebar" >
-      <div >
-        {data.length > 0 && data.map((val, index) => {
-          return <NavItems values={val} key={index}  />;
-        })}
-          <h4
-          onClick={() => {
-            navigate("/");
-          }}>Logout</h4>
+    <div className="sidebar">
+      <div>
+        {data.length > 0 &&
+          data.map((val, index) => {
+            return <NavItems values={val} key={index} />;
+          })}
       </div>
-     
     </div>
   );
 }

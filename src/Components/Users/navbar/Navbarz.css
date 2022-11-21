@@ -19,9 +19,9 @@ nav{
  flex: 0.3;
  min-width: 500px;
 }
-.nav_left > h6 {
-    margin-left: 2rem;
-    /* letter-spacing: 1px; */
+.uu{
+    
+    font-size: 15px;
     padding: 8px 0 ;
     font-weight: 500;
 }
@@ -58,8 +58,9 @@ margin: 5px;
     font-size: 22px;
 }
 .hed{
-    color: rgb(14, 69, 236);
-    font-size: 25px;
+    /* color: rgb(14, 69, 236); */
+    color:black;
+    font-size: 22px;
 }
 
 @media (max-width:991px) {
@@ -87,6 +88,11 @@ margin: 5px;
     display: none;
 }
 
+}
+
+.zz{
+    padding-right: 4px;
+    font-size: 15px;
 }
 @media (max-width:1160px) {
     .nav_left {

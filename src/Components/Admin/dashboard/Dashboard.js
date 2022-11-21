@@ -1,60 +1,101 @@
-import React,{ useContext } from "react";
+import React, { useContext,useEffect,useState } from "react";
 import "./Dashboard.css";
 import Inventory from './inventory/Inventory';
 import DashItem from "./DashItem";
 import AdminContext from "../../Context/adminContext";
+
+import {faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import BarChart from "./BarChart";
 function Dashboard() {
   const context = useContext(AdminContext);
-  const {dashboardOverview } = context;
+  const [year,setYear] = useState(new Date().getFullYear())
+  const { dashboardOverview,getDashboardBarChart,dashboardBarChart } = context;
+
   const data = [
     {
       title: "Total Products",
       value: dashboardOverview.totalProducts,
-      color:"#009A6A",
+      color: "#009A6A",
       theam: "primary",
-      icon: "fa-calendar",
+      icon: faPenToSquare,
     },
     {
-      title: "Products Bought",
+      title: "Total Quantity Bought",
       value: dashboardOverview.bought,
-      color:"#68BC76",
+      color: "#68BC76",
       theam: "success",
       icon: "fa-dollar-sign",
     },
     {
       title: "Sold",
       value: dashboardOverview.sold,
-      color:"#880262",
+      color: "#880262",
       theam: "warning",
       icon: "fa-comments",
     },
-    
-    { title: "Out Of Stock",
-     value: dashboardOverview.outOfStock,
-     color:"#F16D69",
+
+    {
+      title: "Out Of Stock",
+      value: dashboardOverview.outOfStock,
+      color: "#F16D69",
       theam: "info",
-       icon: "fa-clipboard-list" },
+      icon: "fa-clipboard-list"
+    },
     {
       title: "Available Stock",
       value: dashboardOverview.totalAvaliableStock,
-      color:"#B266F8",
+      color: "#B266F8",
       theam: "warning",
       icon: "fa-comments",
     },
-   
+
   ];
+
+
+  useEffect(()=>{
+    getDashboardBarChart(year)
+  },[year])
+
+  useEffect(()=>{
+    getDashboardBarChart(2022)
+  },[])
+
+  const yearz = (new Date()).getFullYear();
+  const years = Array.from(new Array(10),( val, index) => yearz - index );
   return (
     <>
       <div className="p-3">
-      <div className="comman_header">Dashboard/Overview</div>
-        
+        <div className="comman_header">Dashboard/Overview</div>
         <div className="row p-2">
-          {data.length > 0 &&  data.map((val, i) => {
+          {data.length > 0 && data.map((val, i) => {
             return <DashItem value={val} key={i}></DashItem>;
           })}
         </div>
         <div>
-          <Inventory/>
+          <Inventory />
+        </div>
+        <div>
+        <div className="comman_header">Dashboard/Chart</div>
+        <div>
+        <div className="d-flex justify-content-start align-items-center p-3">
+        <label className="tt">Yearly Sale Report : - </label>
+        <select className="form-select shadow-none w-25 ms-1"  name="" id="" onChange={(e)=> setYear(e.target.value)} value={year}>
+          <option value="default"> Select a Year</option>
+          {
+            years.map((item,index)=>{
+              return <option key={index} value = {item}>{item}</option>
+            })
+          }
+          </select>
+        </div>
+        <div className="rr">
+
+          {
+             dashboardBarChart.month ? <BarChart year = {year}/> : <div> NO Data Found </div>
+          }
+           
+        </div>
+        </div>
         </div>
       </div>
     </>

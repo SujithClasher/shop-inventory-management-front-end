@@ -5,8 +5,8 @@ import './UserPortal.css'
 function UserPortal() {
   return (
     <div>
-      <Navbar/>
-      <div><Outlet/></div>
+      <Navbar />
+      <div><Outlet /></div>
     </div>
   )
 }

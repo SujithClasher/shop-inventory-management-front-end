@@ -2,10 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useFormik } from 'formik';
 import './OrderPage.css'
 import UserContext from '../Context/usercContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus,faFloppyDisk,faCartFlatbedSuitcase,faTrash} from '@fortawesome/free-solid-svg-icons'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function OrderPage() {
   const context = useContext(UserContext);
-  const { product, setOrders ,setOrderz ,username} = context;
+  const { product, setOrders, setOrderz, username } = context;
   const [order, setOrder] = useState([])
   const [customerDetail, SetCustomerDetail] = useState({});
   const [payment, setPayment] = useState({});
@@ -45,6 +49,7 @@ function OrderPage() {
       return errors;
     },
     onSubmit: async (values) => {
+      toast.success("Customer Details Added")
       SetCustomerDetail(values)
     },
   });
@@ -74,10 +79,10 @@ function OrderPage() {
 
   const cart = (data) => {
     const { quantity, product_id } = data;
-    let same = order.find((item) =>{
-      return  item.id === product_id;
+    let same = order.find((item) => {
+      return item.id === product_id;
     });
-    if(!same){
+    if (!same) {
       let pName = product.find((item) => item._id === product_id);
       let value = {
         id: pName._id,
@@ -87,10 +92,10 @@ function OrderPage() {
         total: pName.rate * quantity,
       }
       setOrder([...order, value])
-    }else{
-      alert("already in cart")
+    } else {
+      toast.warn("already in cart")
     }
-    
+
   }
 
   const handleRemove = (index) => {
@@ -130,7 +135,7 @@ function OrderPage() {
 
   const placeOrder = (customer, order, payment, paymenttype) => {
     let orderDetails;
-    let x = username ? username : window.localStorage.getItem("name") 
+    let x = username ? username : window.localStorage.getItem("name")
     let y = window.localStorage.getItem("userId")
     if (Object.keys(customer).length > 0) {
       if (order.length > 0) {
@@ -140,21 +145,21 @@ function OrderPage() {
             order,
             payment,
             paymenttype,
-            billerName : x,
-            billerId : y,
+            billerName: x,
+            billerId: y,
           }
-          
+
           setOrders(orderDetails);
           setOrderz(orderDetails);
         } else {
           setPaymentError("Select your Payment Mode")
-          alert("Enter Payment Mode")
+          toast.warn("Select your Payment Mode");
         }
       } else {
-        alert("Enter Your Product Details")
+        toast.warn("Select Your Product Details")
       }
     } else {
-      alert("Enter Your Customer Details")
+      toast.warn("Enter Your Customer Details")
     }
   }
 
@@ -198,11 +203,9 @@ function OrderPage() {
                     name="customerMobile" />
                   {formiks.touched.customerMobile && formiks.errors.customerMobile ? (<div className="error"> {formiks.errors.customerMobile}</div>) : null}
                 </div>
-                <button type="submit" className="btn btn-success mt-3">Save</button>
+                <button type="submit" className="btn btn-success mt-3">  <span className='cz'><FontAwesomeIcon icon={faFloppyDisk} /></span>Save</button>
               </form>
             </div>
-
-
             <div className='col-sm-12 col-md-6' >
               <form onSubmit={(values) => { formik.handleSubmit(values); }}>
                 <div className="form-group">
@@ -236,7 +239,7 @@ function OrderPage() {
                     {formik.touched.quantity && formik.errors.quantity ? (<div className="error"> {formik.errors.quantity}</div>) : null}
                   </div> : null
                 }
-                <button type="submit" className="btn btn-success mt-3" disabled={quantitys.availableInStock === 0} >Add</button>
+                <button type="submit" className="btn btn-success mt-3" disabled={quantitys.availableInStock === 0} >  <span className='cz'><FontAwesomeIcon icon={faPlus} /></span>Add</button>
               </form>
             </div>
             <div>
@@ -265,7 +268,7 @@ function OrderPage() {
                     <th>{item.rate}</th>
                     <th>{item.quantity}</th>
                     <th>{item.total}</th>
-                    <th><button onClick={() => handleRemove(index)} className="btn btn-danger mt-3">Delete</button></th>
+                    <th><button onClick={() => handleRemove(index)} className="btn btn-danger mt-3">  <span className='cz'><FontAwesomeIcon icon={faTrash} /></span>Delete</button></th>
                   </tr>
                 })
               }
@@ -299,15 +302,16 @@ function OrderPage() {
               <option value="online_payment" >Online Payment</option>
             </select>
             {
-              paymenterror ?  (<div className="error">{paymenterror}</div>) : null
+              paymenterror ? (<div className="error">{paymenterror}</div>) : null
             }
           </div>
         </div>
         <div className='d-flex justify-content-center align-items-center mt-5 mb-5'>
-          <button type="button" onClick={() => placeOrder(customerDetail, order, payment, paymentType)} className="btn btn-success">Place Order</button>
+          <button type="button" onClick={() => placeOrder(customerDetail, order, payment, paymentType)} className="btn btn-success">  <span className='cz'><FontAwesomeIcon icon={faCartFlatbedSuitcase} /></span>Place Order</button>
         </div>
 
       </div>
+      <ToastContainer />
     </div>
   )
 }

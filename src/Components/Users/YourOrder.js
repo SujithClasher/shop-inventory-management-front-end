@@ -24,9 +24,9 @@ function YourOrder() {
     return (
         <div>
             <div className='p-3'>
-                <h2>My Order</h2>
+                <h2>My Order : -</h2>
             </div>
-            <div className="m-3 table_responsive">
+            <div className="m-3 table_responsive qqq">
           <table className="table table-bordered text-center">
             <thead>
               <tr>

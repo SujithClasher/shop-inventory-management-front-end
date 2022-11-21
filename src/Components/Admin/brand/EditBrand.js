@@ -2,6 +2,8 @@ import { useFormik } from "formik";
 import React, { useContext } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import AdminContext from "../../Context/adminContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faXmark,faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 function EditBrand() {
   const params = useParams();
   const { brand, editBrand } = useContext(AdminContext);
@@ -13,14 +15,11 @@ function EditBrand() {
     },
     validate: (values) => {
       const errors = {};
-
       if (values.brand.length === 0) {
         errors.brand = "Enter your Brand";
       }
-
       return errors;
     },
-
     onSubmit: async (values) => {
       await editBrand(values, viewBrand._id);
     },
@@ -33,13 +32,11 @@ function EditBrand() {
         <div className="comman_head">
           <h6>Edit Brand </h6>
         </div>
-
         <div className="d-flex justify-content-center m-5">
           <form
             onSubmit={(values) => {
               formik.handleSubmit(values);
-            }}
-          >
+            }} >
             <label htmlFor="exampleInputEmail1" className="form-label">
               Brand
             </label>
@@ -51,17 +48,16 @@ function EditBrand() {
               value={formik.values.brand}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              name="brand"
-            />
+              name="brand" />
             {formik.touched.brand && formik.errors.brand ? (
               <div className="error"> {formik.errors.brand}</div>
             ) : null}
             <button type="submit" className="btn btn-success mt-3">
-              Save
+            <span className='cz' ><FontAwesomeIcon icon={ faFloppyDisk}/></span> Save
             </button>
             <NavLink to="/home/brand">
               <button type="submit" className="btn btn-secondary  mt-3 ms-3">
-                Cancel
+              <span className='cz' ><FontAwesomeIcon icon={faXmark}/></span>  Cancel
               </button>
             </NavLink>
           </form>

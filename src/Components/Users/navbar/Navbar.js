@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import './Navbarz.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faXmark, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faXmark, faUser ,faHouseUser,faRightFromBracket,faTasks} from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import UserContext from '../../Context/usercContext'
 
@@ -18,42 +18,40 @@ function Navbar() {
       <nav>
         <div className='nav_left'>
           <h5><span className='hed'>Shop Inventory Management</span></h5>
-
         </div>
         <div>
-
         </div>
-
         <div className='nav_rights' id={open ? null : "hides"} >
-          <h5 className='me-2'>User : {username ? username : window.localStorage.getItem("name")}</h5>
-          <div onClick={closeMenu}>
-         <h6  onClick={() => {
+          <span className='me-2'>User : {username ? username : window.localStorage.getItem("name")}</span>
+          <div onClick={closeMenu}> <span className='zz'><FontAwesomeIcon icon={faHouseUser} /></span>
+            <span  className='uu' onClick={() => {
               navigate("/user-portal");
-            }} >Home</h6> 
-         </div>
+            }} >Home</span>
+          </div>
           <div onClick={closeMenu}>
-            <h6 onClick={() => {
+          <span className='zz'><FontAwesomeIcon icon={faTasks} /></span>
+            <span className='uu' onClick={() => {
               navigate("/user-portal/your-order");
-            }} > Your Order</h6>
+            }} > Your Order</span>
           </div>
           <div className='d-flex justify-content-center align-items-center ' onClick={closeMenu}>
-            <h6 onClick={() => {
+          <span className='zz'><FontAwesomeIcon icon={faUser} /></span>
+            <span className='uu' onClick={() => {
               navigate("/user-portal/profile-page");
-            }} >Profile</h6>
+            }} >Profile</span>
           </div>
           <div onClick={closeMenu}>
-            <h6
+          <span className='zz'><FontAwesomeIcon icon={faRightFromBracket} /></span>
+            <span className='uu'
               onClick={() => {
                 window.localStorage.removeItem("token")
                 window.localStorage.removeItem("name")
                 window.localStorage.removeItem("isAdmin")
                 window.localStorage.removeItem("userId")
                 navigate("/");
-              }}>Logout</h6>
+              }}>Logout</span>
           </div>
-
         </div>
-
         <div className='menu_icon' onClick={handleClick}>
           <span>  {open ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faBars} />} </span>
         </div>

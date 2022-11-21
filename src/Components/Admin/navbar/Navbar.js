@@ -18,9 +18,8 @@ function Navbar() {
         <h5>Shop Inventory Management</h5>
       </div>
       <h5>
-          Admin
-        </h5>
-
+        Admin
+      </h5>
       <div className='menu_icon' onClick={handleClick}>
         <span>  {open ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faBars} />} </span>
       </div>

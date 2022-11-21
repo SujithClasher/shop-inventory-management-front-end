@@ -41,14 +41,15 @@ text-align: center;
 .a{
 position: absolute;
 bottom: 0;
-left: 10px;
-color:green;
-background-color: yellowgreen;
+right: 10px;
+color:white;
+/* background-color: rgb(155, 122, 221); */
 padding: 10px;
 border-radius: 10px;
 }
 .a>h1{
     text-align: start;
+    color: blue;
 }
 
 

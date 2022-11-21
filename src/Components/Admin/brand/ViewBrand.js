@@ -3,11 +3,15 @@ import "./Brand.css";
 import { NavLink, useNavigate } from 'react-router-dom'
 import AdminContext from '../../Context/adminContext';
 import Search from '../../Search';
-function ViewBrand() {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+function ViewBrand() {
   let navigate = useNavigate();
   const context = useContext(AdminContext);
-  const { brand, deleteBrand,getBrand } = context
+  const { brand, deleteBrand, getBrand } = context
   const handleEdit = (id) => {
     navigate(`/home/brand/edit-brand/${id}`)
   }
@@ -18,21 +22,24 @@ function ViewBrand() {
 
     <div>
       <div className="comman_header">Home/Brand</div>
-      <div className="d-flex justify-content-end me-2">
-        <NavLink to="/home/brand/add-brand">
-          <button type="button" className="btn btn-success">
-            Add Brand
-          </button>
-        </NavLink>
-      </div>
-      <div className="comman ">
-        <div className="comman_head">
-          <h6>Brand </h6>
+
+      <div className="comman p-2 ">
+        <div className="d-flex justify-content-end ">
+
         </div>
-        <div className="d-flex justify-content-end mt-5 m-3">
-        <Search data = {getBrand} lable = {"Brand"}/>
+        <div className="d-flex  justify-content-between mt-3">
+          <div>
+            <Search data={getBrand} lable={"Brand"} />
+          </div>
+          <div></div>
+          <div>    <NavLink to="/home/brand/add-brand">
+            <button type="button" className="btn btn-success">
+              <span className='cz' ><FontAwesomeIcon icon={faPlus} /></span>  Add Brand
+            </button>
+          </NavLink>
+          </div>
         </div>
-        <div className="m-3 table_responsive text-center order-table mx-auto">
+        <div className="m-3 table_responsive text-center  mx-auto">
           <table className="table">
             <thead>
               <tr>
@@ -51,21 +58,27 @@ function ViewBrand() {
                       <button type="button" className="btn btn-success" onClick={() => {
                         handleEdit(item._id)
                       }}>
-                        Edit
+                        <span className='cz' ><FontAwesomeIcon icon={faPenToSquare} /></span> Edit
                       </button>
                       <button type="button" className="btn btn-secondary ms-2" onClick={() => {
                         handledelete(item._id)
                       }}>
-                        Delete
+                        <span className='cz' ><FontAwesomeIcon icon={faTrash} /></span> Delete
                       </button>
+
                     </td>
+
                   </tr>
+
                 })
               }
+
             </tbody>
+
           </table>
         </div>
       </div>
+      <ToastContainer />
     </div>
 
   );

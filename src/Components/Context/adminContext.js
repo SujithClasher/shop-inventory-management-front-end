@@ -2,12 +2,13 @@ import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { env } from "../../config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 let AdminContext = createContext();
 
 export const AdminProvider = ({ children }) => {
     let navigate = useNavigate();
-    console.log("sivanathan...................");
     const [username, setUsername] = useState("siva");
     const [open, setOpen] = useState(false);
     const [brand, setBrand] = useState([]);
@@ -15,6 +16,7 @@ export const AdminProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [dashboardProduct, setDashboardProduct] = useState([]);
     const [dashboardOverview, setDashboardOverview] = useState({});
+    const [dashboardBarChart, setDashboardBarChart] = useState([])
     const [user, setUser] = useState([]);
     const [order, setOrder] = useState([]);
 
@@ -52,30 +54,18 @@ export const AdminProvider = ({ children }) => {
 
 
     useEffect(() => {
+        getDashboardBarChart(2022)
+    }, []);
+
+    useEffect(() => {
         getUser()
     }, []);
 
 
     useEffect(() => {
         getOrder()
-    },[]);
+    }, []);
 
-
-    // const invoice = async (query) => {
-    //     try {
-    //         let value;
-    //         if (!query) {
-    //             value = await axios.get(`${env.api}/inventory/products`);
-    //         } else {
-    //             value = await axios.get(`${env.api}/inventory/products?q=${query}`);
-    //         }
-    //         setProducts(value.data.data);
-
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
     const getBrand = async (query) => {
         try {
             let value;
@@ -99,7 +89,7 @@ export const AdminProvider = ({ children }) => {
             if (statusCode === 201) {
                 navigate("/home/brand");
             } else {
-                alert(message);
+                toast.warn(message);
             }
         } catch (error) {
             console.log(error);
@@ -115,7 +105,7 @@ export const AdminProvider = ({ children }) => {
             if (statusCode === 200) {
                 navigate("/home/brand");
             } else {
-                alert(message);
+                toast.warn(message);
             }
         } catch (error) {
             console.log(error);
@@ -129,9 +119,9 @@ export const AdminProvider = ({ children }) => {
             const { data } = value;
             const { message, statusCode } = data;
             if (statusCode === 200) {
-                alert(message);
+                toast.success(message);
             } else {
-                alert(message);
+                toast.warn(message);
             }
         } catch (error) {
             console.log(error);
@@ -165,7 +155,7 @@ export const AdminProvider = ({ children }) => {
             if (statusCode === 201) {
                 navigate("/home/category");
             } else {
-                alert(message);
+                toast.warn(message);
             }
         } catch (error) {
             console.log(error);
@@ -181,7 +171,7 @@ export const AdminProvider = ({ children }) => {
             if (statusCode === 200) {
                 navigate("/home/category");
             } else {
-                alert(message);
+                toast.warn(message);
             }
         } catch (error) {
             console.log(error);
@@ -195,9 +185,9 @@ export const AdminProvider = ({ children }) => {
             const { data } = value;
             const { message, statusCode } = data;
             if (statusCode === 200) {
-                alert(message);
+                toast.success(message);
             } else {
-                alert(message);
+                toast.warn(message);
             }
         } catch (error) {
             console.log(error);
@@ -232,7 +222,7 @@ export const AdminProvider = ({ children }) => {
                 getproducts()
                 navigate("/home/products");
             } else {
-                alert(message);
+                toast.warn(message);
             }
         } catch (error) {
             console.log(error);
@@ -250,7 +240,7 @@ export const AdminProvider = ({ children }) => {
                 getproducts()
                 navigate("/home/products");
             } else {
-                alert(message);
+                toast.warn(message);
             }
         } catch (error) {
             console.log(error);
@@ -264,9 +254,9 @@ export const AdminProvider = ({ children }) => {
             const { message, statusCode } = data;
             if (statusCode === 200) {
                 getproducts();
-                alert(message);
+                toast.success(message);
             } else {
-                alert(message);
+                toast.warn(message);
             }
         } catch (error) {
             console.log(error);
@@ -275,21 +265,42 @@ export const AdminProvider = ({ children }) => {
 
     // Dashboard
 
-    const getDashboardProduct = async () => {
-
+    const getDashboardProduct = async (query) => {
         try {
-            let value = await axios.get(`${env.api}/inventory/dashboard-products`);
+            let value;
+            if (!query) {
+                value = await axios.get(`${env.api}/inventory/dashboard-products`);
+            } else {
+                value = await axios.get(`${env.api}/inventory/dashboard-products?q=${query}`);
+            }
             const { data } = value;
             setDashboardProduct(data.products);
         } catch (error) {
             console.log(error);
         }
     };
+
     const getDashboardOverview = async () => {
         try {
             let value = await axios.get(`${env.api}/inventory/dashboard-overview`);
             const { data } = value;
             setDashboardOverview(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getDashboardBarChart = async (query) => {
+        try {
+            console.log(query);
+            // let value;
+            // if (!query) {
+                let value = await axios.get(`${env.api}/inventory/dashboard-barChart/${query}`);
+            // } else {
+            //     value = await axios.get(`${env.api}/inventory/dashboard-barChart?q=${query}`);
+            // }
+            const { data } = value;
+            setDashboardBarChart(data);
         } catch (error) {
             console.log(error);
         }
@@ -318,7 +329,8 @@ export const AdminProvider = ({ children }) => {
     return (
         <AdminContext.Provider value={{
             username, setUsername, brand, open, setOpen, getBrand, addBrand, editBrand, deleteBrand, category, addCategory, editCategory, deleteCategory,
-            products, getproducts, addProduct, editProduct, deleteProduct, dashboardProduct, dashboardOverview, getCategory, user, getUser, order
+            products, getproducts, addProduct, editProduct, deleteProduct, dashboardProduct, dashboardOverview, getCategory, user, getUser, order,
+            getDashboardProduct, getDashboardOverview, dashboardBarChart, getDashboardBarChart
         }}>
             {children}
         </AdminContext.Provider>

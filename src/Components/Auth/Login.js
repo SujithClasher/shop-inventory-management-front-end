@@ -1,4 +1,4 @@
-import React, {  useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./Login.css";
 import { useFormik } from "formik";
 import axios from "axios";
@@ -8,15 +8,24 @@ import { useNavigate } from "react-router-dom";
 import { env } from "../../config";
 import load from "../../asset/loading2.svg";
 import UserContext from "../Context/usercContext";
-
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import AdminContext from "../Context/adminContext";
 
 
 function Login() {
   const context = useContext(UserContext)
-  const {setUsername} = context
+  const context1 = useContext(AdminContext);
+  const { setUsername } = context
+  const { getDashboardProduct,getDashboardOverview } = context1
 
   let navigate = useNavigate();
   let [loading, setloading] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
 
   const formik = useFormik({
     initialValues: {
@@ -43,9 +52,9 @@ function Login() {
         setloading(true)
         let value = await axios.post(`${env.api}/user/login`, values);
         const { data } = value;
-        const { isAdmin, message, name, statusCode, token,user } = data;
+        const { isAdmin, message, name, statusCode, token, user } = data;
         if (statusCode === 201) {
-          
+
           setloading(false)
           window.localStorage.setItem("token", token);
           window.localStorage.setItem("name", name);
@@ -54,17 +63,20 @@ function Login() {
           toast.success(message);
 
           setTimeout(() => {
-            if(isAdmin === "admin"){
+            if (isAdmin === "admin") {
+              getDashboardProduct()
+              getDashboardOverview()
               navigate("/home");
             }
-            else if(isAdmin === "user"){  
-              setUsername(name)     
+            else if (isAdmin === "user") {
+              setUsername(name)
               navigate("/user-portal")
-            }else{
-              alert("PLZ wait Admin allowed your request")
+            } else {
+              handleShow()
+
             }
-            
-          }, 400);
+
+          },350);
         }
 
         if (statusCode === 401) {
@@ -127,14 +139,12 @@ function Login() {
               Forgot Password ?
             </span>
           </div>
-
           <button type="submit" className="btn btns" disabled={!formik.isValid}>
             {loading ? (
               <img
                 src={load}
                 alt="load"
                 className="spinner"
-
               />
             ) : "Login"}
 
@@ -153,16 +163,30 @@ function Login() {
         </form>
         <ToastContainer />
       </div>
-
       <div className='mt-5 a'>
         <h1>note : -</h1>
-  <h4>Admin User : - </h4>
-  <p>Email : siva@gmail.com</p>
-  <p>Password : test1234</p>
-
-  <h4>User : -</h4>
-  <p>User kindly to create an account</p>
-</div>
+        <h4>Admin User : - </h4>
+        <p>Email : siva@gmail.com</p>
+        <p>Password : test1234</p>
+        <h4>User : -</h4>
+        <p>User kindly to create an account</p>
+      </div>
+      <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login Successful, Your request Send to Admin.Plz Wait for conformation..!!! </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h5>note : - </h5>
+          <h6> step : 1 Go to Login admin Account</h6>
+          <h6> step : 2 Click User Button , User Window is open</h6>
+          <h6> step : 3 Select your account and change Roll to User</h6>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
