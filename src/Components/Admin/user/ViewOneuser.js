@@ -10,7 +10,7 @@ function ViewOneuser() {
   const { order } = context
 
   let data = order.filter((item) => item.billerId === params.id)
-  console.log(data);
+
   return (
     <div>
       <div className='w-100 bg-danger p-2'>Order History</div>

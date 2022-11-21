@@ -2,7 +2,7 @@ import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { env } from "../../config";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 let AdminContext = createContext();
@@ -54,7 +54,7 @@ export const AdminProvider = ({ children }) => {
 
 
     useEffect(() => {
-        getDashboardBarChart(2022)
+        getDashboardBarChart(new Date().getFullYear())
     }, []);
 
     useEffect(() => {
@@ -330,7 +330,7 @@ export const AdminProvider = ({ children }) => {
         <AdminContext.Provider value={{
             username, setUsername, brand, open, setOpen, getBrand, addBrand, editBrand, deleteBrand, category, addCategory, editCategory, deleteCategory,
             products, getproducts, addProduct, editProduct, deleteProduct, dashboardProduct, dashboardOverview, getCategory, user, getUser, order,
-            getDashboardProduct, getDashboardOverview, dashboardBarChart, getDashboardBarChart
+            getDashboardProduct, getDashboardOverview, dashboardBarChart, getDashboardBarChart, getOrder
         }}>
             {children}
         </AdminContext.Provider>

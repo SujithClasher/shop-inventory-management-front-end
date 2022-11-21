@@ -16,8 +16,8 @@ import AdminContext from "../Context/adminContext";
 function Login() {
   const context = useContext(UserContext)
   const context1 = useContext(AdminContext);
-  const { setUsername } = context
-  const { getDashboardProduct,getDashboardOverview } = context1
+  const { setUsername,productData } = context
+  const { getDashboardProduct,getDashboardOverview,getDashboardBarChart,getUser,getOrder } = context1
 
   let navigate = useNavigate();
   let [loading, setloading] = useState(false);
@@ -64,12 +64,16 @@ function Login() {
 
           setTimeout(() => {
             if (isAdmin === "admin") {
+              getOrder()
+              getUser()
               getDashboardProduct()
               getDashboardOverview()
+              getDashboardBarChart(new Date().getFullYear())
               navigate("/home");
             }
             else if (isAdmin === "user") {
               setUsername(name)
+              productData()
               navigate("/user-portal")
             } else {
               handleShow()
@@ -173,9 +177,10 @@ function Login() {
       </div>
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Login Successful, Your request Send to Admin.Plz Wait for conformation..!!! </Modal.Title>
+          <Modal.Title><h5 className="ttt">Login Successful..</h5> </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <h5 className="fff">Your request Send to Admin.Plz Wait for conformation..!!!</h5>
           <h5>note : - </h5>
           <h6> step : 1 Go to Login admin Account</h6>
           <h6> step : 2 Click User Button , User Window is open</h6>

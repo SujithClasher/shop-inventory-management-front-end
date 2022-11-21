@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus,faFloppyDisk,faCartFlatbedSuitcase,faTrash} from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import load from "../../asset/loading3.svg";
 
 function OrderPage() {
   const context = useContext(UserContext);
@@ -16,6 +17,7 @@ function OrderPage() {
   const [quantitys, setQuantitys] = useState({});
   const [paymentType, setPaymentType] = useState("");
   const [paymenterror, setPaymentError] = useState("");
+  const [button,setButton] = useState(false)
 
 
 
@@ -148,7 +150,7 @@ function OrderPage() {
             billerName: x,
             billerId: y,
           }
-
+          setButton(true)
           setOrders(orderDetails);
           setOrderz(orderDetails);
         } else {
@@ -307,7 +309,13 @@ function OrderPage() {
           </div>
         </div>
         <div className='d-flex justify-content-center align-items-center mt-5 mb-5'>
-          <button type="button" onClick={() => placeOrder(customerDetail, order, payment, paymentType)} className="btn btn-success">  <span className='cz'><FontAwesomeIcon icon={faCartFlatbedSuitcase} /></span>Place Order</button>
+          {
+            button ?  <img
+            src={load}
+            alt="load"
+            style={{width :  "2rem"}}
+          /> : <button type="button" onClick={() => placeOrder(customerDetail, order, payment, paymentType)} className="btn btn-success">  <span className='cz'><FontAwesomeIcon icon={faCartFlatbedSuitcase} /></span>Place Order</button>
+          }
         </div>
 
       </div>

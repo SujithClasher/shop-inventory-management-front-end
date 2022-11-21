@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function ViewAlluser() {
   let context = useContext(AdminContext)
-  const { user, getUser, order } = context
+  const { user, getUser } = context
 
 
   const handleChange = async (id, e) => {
@@ -28,11 +28,11 @@ function ViewAlluser() {
       console.log(error);
     }
   };
-  const finder = async (id) => {
-    let data = await order.filter((item) => item.billerId === id)
-    return data.length
-  }
-  finder("637074c3b41982a0cea124c5")
+  // const finder = async (id) => {
+  //   let data = await order.filter((item) => item.billerId === id)
+  //   return data.length
+  // }
+  // finder("637074c3b41982a0cea124c5")
   return (
     <div>
       <div className="comman_header">Home/Users</div>
