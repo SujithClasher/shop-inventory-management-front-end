@@ -73,7 +73,6 @@ function ViewAlluser() {
                     <td>{item.name}</td>
                     <td>{item.email}</td>
                     <td> <select className="form-select shadow-none" onChange={(e) => handleChange(item._id, e.target.value)} value={item.isAdmin}>
-                      <option selected value="Default">Select Your Roll</option>
                       <option selected value="admin">Admin</option>
                       <option selected value="user">User</option>
                       <option selected value="none">None</option>
